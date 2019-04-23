@@ -38,8 +38,8 @@
 		aboutText: '',
 		imagesBackground: '',
 		headerTextColor:'#ffffff',
-		desktopHeight: '25rem',
-		desktopWidth: '20rem',
+		// desktopHeight: '25rem',
+		// desktopWidth: '20rem',
 	};
 </script>
 
