@@ -34,10 +34,12 @@
 		introMessage: 'Ellen xin chào!',
 		placeholderText: 'Ask Me Something',
 		mainColor: '#ff51a8',
-		bubbleBackground: '#16accf',
+		bubbleBackground: '#00b7f3',
 		aboutText: '',
 		imagesBackground: '',
 		headerTextColor:'#ffffff',
+		desktopHeight: '25rem',
+		desktopWidth: '20rem',
 	};
 </script>
 
