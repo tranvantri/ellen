@@ -1129,7 +1129,7 @@ input::-webkit-inner-spin-button {
 .back-to-top{
     position: fixed;
     z-index: 150;
-    bottom: 50px;
+    bottom: 26%;
     right: 30px;
     height: 50px;
     width: 50px;

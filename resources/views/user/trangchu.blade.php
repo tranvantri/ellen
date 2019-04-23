@@ -140,7 +140,7 @@
 
 		
 	</style>
-	<div class="icon-chatbox icon-chatbox-animate">
+	{{-- <div class="icon-chatbox icon-chatbox-animate">
 			<i class="fa fa-comments-o" aria-hidden="true"></i>
 	</div>
 	<div class="chatbox">
@@ -170,6 +170,6 @@
 				<input type="text" placeholder="Nhập tin nhắn" name="" class="input-text">			
 			</div>
 		</div>
-	</div>
+	</div> --}}
 	
 @endsection
