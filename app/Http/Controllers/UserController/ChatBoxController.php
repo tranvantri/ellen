@@ -1,15 +1,11 @@
 <?php
 namespace App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
-use Gloudemans\Shoppingcart\Facades\Cart; 
-use App\User;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\Controller;
 use App\Quotation;
-
-
 // for Botman usage
 use BotMan\BotMan\Messages\Attachments\Image;
 use BotMan\BotMan\Messages\Attachments\Video;

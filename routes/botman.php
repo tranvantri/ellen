@@ -5,6 +5,9 @@ use App\Http\Controllers\BotManController;
 
 $botman = resolve('botman');
 
+$botman->hears('Hi', function ($bot) {
+    $bot->reply('Hello there!');
+});
 
 $botman->hears('Call me {name}', function ($bot,$name) {
     $bot->reply('Hello '.$name);
@@ -38,11 +41,6 @@ $botman->hears('Hey ([a-z]+)', function ($bot,$alpha) {
     $bot->reply('You typed: '.$alpha);
 });
 
-$botman->fallback(function($bot){
-    $bot->reply("Sorry i don't know what are you talking about!");
-});
-
-
 $botman->hears('I want ([0-9]+) portions of (Cheese|Cake)', function ($bot, $amount, $dish) {
     $bot->reply('You will get '.$amount.' portions of '.$dish.' served shortly.');
 
@@ -56,4 +54,9 @@ $botman->hears('show cate group', 'App\Http\Controllers\UserController\ChatBoxCo
 // tìm sản phẩm theo tên
 $botman->hears('show me {nameProduct}', 'App\Http\Controllers\UserController\ChatBoxController@handleGetCateProductID');
 
+
+//-------------------------------------------------------------------------------
+$botman->fallback(function($bot){
+    $bot->reply("Sorry i don't know what are you talking about!");
+});
 $botman->hears('Start conversation', BotManController::class.'@startConversation');
