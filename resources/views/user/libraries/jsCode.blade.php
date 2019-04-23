@@ -31,7 +31,7 @@
 		// frameEndpoint: '/chat.html',
 		// chatServer: 'chat.php',
 		title: 'Ellen Store',
-		introMessage: 'Hi and welcome to our chatbot how can i help you ?',
+		introMessage: 'Ellen xin chào!',
 		placeholderText: 'Ask Me Something',
 		mainColor: '#ff51a8',
 		bubbleBackground: '#16accf',
