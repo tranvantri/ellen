@@ -1,5 +1,12 @@
 <?php
 use App\Http\Controllers\BotManController;
+use App\Conversations\OnboardingConversation;
+use BotMan\BotMan\Messages\Incoming\Answer;
+use BotMan\BotMan\Messages\Outgoing\Question;
+use BotMan\BotMan\Messages\Outgoing\Actions\Button;
+use BotMan\BotMan\Messages\Conversations\Conversation;
+
+
 
 $botman = resolve('botman');
 
@@ -8,8 +15,19 @@ $botman->hears('Hi', function ($bot) {
     $bot->reply('Hello there!');
 });
 
-$botman->hears('Call me {name}', function ($bot,$name) {
-    $bot->reply('Hello '.$name);
+$botman->hears("call me {name}", function ($bot, $name) {
+    // Store information for the currently logged in user.
+    // You can also pass a user-id / key as a second parameter.
+    $bot->userStorage()->save([
+        'name' => $name
+    ]);
+
+    $bot->reply('I will call you '.$name);
+});
+
+$botman->hears('what is my name', function ($bot) {
+    $name = $bot->userStorage()->get('name');
+    $bot->reply('Yep, you are '.$name.' !');
 });
 
 $botman->hears('i am ([0-9]+)', function ($bot,$age) {
@@ -23,32 +41,69 @@ $botman->hears('how old am i', function ($bot) {
     $bot->reply('You are '.$age.' years old.');
 });
 
-$botman->hears('my name is ([a-z]+)', function ($bot,$name) {
-    $bot->reply('Xin chào '.$name.' nha!');
-    $bot->userStorage()->save([
-        'name'=>$name
-    ]);
-});
-$botman->hears('what is my name', function ($bot) {
-    $name = $bot->userStorage()->get('name');
-    $bot->reply('Bạn là '.$name.' nè.');
-});
-
-$botman->hears('Hey ([a-z]+)', function ($bot,$alpha) {
-    $bot->reply('You typed: '.$alpha);
-});
-
 $botman->hears('I want ([0-9]+) portions of (Cheese|Cake)', function ($bot, $amount, $dish) {
     $bot->reply('You will get '.$amount.' portions of '.$dish.' served shortly.');
 
 });
 
-$botman->hears('my email is ([a-z0-9]+)', function ($bot,$email) {
+$botman->hears('my email is {email}', function ($bot,$email) {
     $bot->reply('Oke. Your email is: '.$email);
     $bot->userStorage()->save([
         'email'=>$email
     ]);
 });
+
+$botman->hears('my address is {address}', function ($bot,$address) {
+    $bot->reply('Oke. Your address is: '.$address);
+    $bot->userStorage()->save([
+        'address'=>$address
+    ]);
+});
+
+
+$botman->hears('ht', function($bot) {
+    $bot->startConversation(new OnboardingConversation);
+});
+
+//******************************************** */
+$botman->hears("forget me", function ($bot) {
+    // Delete all stored information. 
+    $bot->userStorage()->delete();
+    $bot->reply('Why you leave me :( ');
+});
+
+
+$botman->hears("who am i", function ($bot) {
+    $user = $bot->userStorage()->all();
+    if ($user) {
+        $message = '-------------------------------------- <br>';
+        $message .= 'You are : ' . $bot->userStorage()->get('name') . '<br>';
+        $message .= 'Your email is '.$bot->userStorage()->get('email'). '<br>';
+        $message .= 'You are '.$bot->userStorage()->get('age').' years old.' . '<br>';
+        $message .= 'Your address is '.$bot->userStorage()->get('address'). '<br>';
+        
+        $message .= '---------------------------------------';
+        $bot->reply('Here is your information. <br>' . $message);
+
+        $question = Question::create("Am i correct??");
+        $question->addButtons(
+            [
+                Button::create('Yep')->value('yes'),
+                Button::create('Nope')->value('no')
+            ]
+        );
+        $bot->ask($question,function($answer){
+
+        });
+
+    } else {
+        $bot->reply('I do not know you yet.');
+    }
+});
+
+//******************************************** */
+
+
 
 /** -     -------     ------- Kết thúc nhóm Kịch bản đơn giản */
 

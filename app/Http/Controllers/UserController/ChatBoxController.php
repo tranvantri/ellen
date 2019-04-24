@@ -29,6 +29,7 @@ class ChatBoxController extends Controller
           $results = DB::table('product')->where('name','LIKE',"%".$nameProduct.'%')->get();
           // có sản phẩm trong DB
           if($results->count() > 0){
+               $bot->types();
                $bot->reply('Look what i found for you: ');
                foreach($results as $child){
                     $image = json_decode($child->otherImg);
