@@ -6,6 +6,7 @@ use BotMan\BotMan\BotMan;
 use Illuminate\Http\Request;
 use App\Conversations\ExampleConversation;
 use App\Conversations\OnboardingConversation;
+use App\Conversations\CheckInforConversation;
 
 
 class BotManController extends Controller
@@ -36,5 +37,6 @@ class BotManController extends Controller
     {
         $bot->startConversation(new ExampleConversation());
         $bot->startConversation(new OnboardingConversation());
+        $bot->startConversation(new CheckInforConversation());
     }
 }

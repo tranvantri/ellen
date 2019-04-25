@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\BotManController;
 use App\Conversations\OnboardingConversation;
+use App\Conversations\CheckInforConversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
@@ -61,7 +62,7 @@ $botman->hears('my address is {address}', function ($bot,$address) {
 });
 
 
-$botman->hears('ht', function($bot) {
+$botman->hears('chat', function($bot) {
     $bot->startConversation(new OnboardingConversation);
 });
 
@@ -69,7 +70,7 @@ $botman->hears('ht', function($bot) {
 $botman->hears("forget me", function ($bot) {
     // Delete all stored information. 
     $bot->userStorage()->delete();
-    $bot->reply('Why you leave me :( ');
+    $bot->reply('Sorry to see you go :( ');
 });
 
 
@@ -85,16 +86,8 @@ $botman->hears("who am i", function ($bot) {
         $message .= '---------------------------------------';
         $bot->reply('Here is your information. <br>' . $message);
 
-        $question = Question::create("Am i correct??");
-        $question->addButtons(
-            [
-                Button::create('Yep')->value('yes'),
-                Button::create('Nope')->value('no')
-            ]
-        );
-        $bot->ask($question,function($answer){
-
-        });
+        $bot->startConversation(new CheckInforConversation);
+        
 
     } else {
         $bot->reply('I do not know you yet.');
