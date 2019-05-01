@@ -1,12 +1,18 @@
 <?php
 use App\Http\Controllers\BotManController;
-use App\Conversations\OnboardingConversation;
-use App\Conversations\CheckInforConversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Conversations\Conversation;
+/* -------- for conversation with botman */
+use App\Conversations\OnboardingConversation;
+use App\Conversations\CheckInforConversation;
+use App\Conversations\CheckBillConversation;
 
+
+
+
+/**  --------- end conversation */
 
 
 $botman = resolve('botman');
@@ -100,6 +106,9 @@ $botman->hears("who am i", function ($bot) {
 
 /** -     -------     ------- Kết thúc nhóm Kịch bản đơn giản */
 
+
+
+
 /**  *-----------Nhóm kịch bản lấy dữ liệu từ DB ***************** */
 // xem danh sách nhóm sản phẩm
 $botman->hears('show cate group', 'App\Http\Controllers\UserController\ChatBoxController@handleGetTitles');
@@ -107,6 +116,7 @@ $botman->hears('show cate group', 'App\Http\Controllers\UserController\ChatBoxCo
 // tìm sản phẩm theo tên
 $botman->hears('show me {nameProduct}', 'App\Http\Controllers\UserController\ChatBoxController@handleGetCateProductID');
 
+$botman->hears('bill','App\Http\Controllers\UserController\ChatBoxController@handleGetBillID');
 
 /***----------- Kết thúc Nhóm kịch bản lấy dữ liệu từ DB ***************** */
 

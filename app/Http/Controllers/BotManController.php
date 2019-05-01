@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Conversations\ExampleConversation;
 use App\Conversations\OnboardingConversation;
 use App\Conversations\CheckInforConversation;
-
+use App\Conversations\CheckBillConversation;
+use App\Conversations\CheckUserInformationForBillConversation;
 
 class BotManController extends Controller
 {
@@ -38,5 +39,8 @@ class BotManController extends Controller
         $bot->startConversation(new ExampleConversation());
         $bot->startConversation(new OnboardingConversation());
         $bot->startConversation(new CheckInforConversation());
+        $bot->startConversation(new CheckBillConversation());
+        $bot->startConversation(new CheckUserInformationForBillConversation());
+        
     }
 }
