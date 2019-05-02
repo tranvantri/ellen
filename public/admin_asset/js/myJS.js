@@ -1031,6 +1031,19 @@ $(document).ready(function() {
 		}
 	});
 
+		$('.chatbot-excel, .btn-export').click(function (e) { 
+			// console.log('dasd');
+			e.preventDefault();
+			$('#loadding-chatbot').css({
+				opacity: 1,
+				visibility: 'visible',				
+			});
+			$('.momo', ).css({
+				visibility: 'visible',					
+			});
+		});
+	
+
 	// //Xử lý chọn sản phẩm trang khuyren mãi
 
 	// $('.checkbox-sp').change(function(event) {

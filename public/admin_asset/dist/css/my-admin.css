@@ -190,3 +190,25 @@ label.error{
 .stroll-div::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
+
+#loadding-chatbot{
+    top: 45%;
+    position: fixed;
+    left: 45%;
+    z-index: 100;
+    font-size: 3.5rem;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.momo{
+    background-color: #faebd700;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+}
+

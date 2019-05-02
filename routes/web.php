@@ -149,6 +149,11 @@ Route::group(['namespace' => 'AdminManager'], function() {
             Route::post('edit/{id}', 'UserController@postEdit');
             Route::get('delete/{id}', 'UserController@getDelete');
         });
+
+        /*Chatbot*/
+        Route::group(['prefix' => 'chatbot'], function() {
+            Route::get('view', 'ChatBotController@getView');            
+        });
         
     });
 

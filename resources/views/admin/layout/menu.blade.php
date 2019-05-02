@@ -91,6 +91,16 @@
                 </ul> --}}
                 <!-- /.nav-second-level -->
             </li>
+            <li>
+                <a href="admin/chatbot/view"><i class="fa fa-file-excel-o fa-fw"></i> Chatbot<span class="fa arrow"></span></a>
+                {{-- <ul class="nav nav-second-level">
+                    <li>
+                        <a href="admin/user/list"><i class="fa fa-list"></i> Danh sách User</a>
+                    </li>
+                   
+                </ul> --}}
+                <!-- /.nav-second-level -->
+            </li>
         </ul>
     </div>
     <!-- /.sidebar-collapse -->
