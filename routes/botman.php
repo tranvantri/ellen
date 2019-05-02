@@ -118,6 +118,9 @@ $botman->hears('show me {nameProduct}', 'App\Http\Controllers\UserController\Cha
 
 $botman->hears('bill','App\Http\Controllers\UserController\ChatBoxController@handleGetBillID');
 
+$botman->hears('tomiot','App\Http\Controllers\UserController\ChatBoxController@handleFromDB');
+
+
 /***----------- Kết thúc Nhóm kịch bản lấy dữ liệu từ DB ***************** */
 
 //------------ Bộ câu hỏi ngoài xử lý   ------------------------------------

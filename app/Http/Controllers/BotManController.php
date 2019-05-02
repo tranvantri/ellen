@@ -9,6 +9,7 @@ use App\Conversations\OnboardingConversation;
 use App\Conversations\CheckInforConversation;
 use App\Conversations\CheckBillConversation;
 use App\Conversations\CheckUserInformationForBillConversation;
+use App\Conversations\ChatFromDBConversation;
 
 class BotManController extends Controller
 {
@@ -41,6 +42,7 @@ class BotManController extends Controller
         $bot->startConversation(new CheckInforConversation());
         $bot->startConversation(new CheckBillConversation());
         $bot->startConversation(new CheckUserInformationForBillConversation());
+        $bot->startConversation(new ChatFromDBConversation());
         
     }
 }
