@@ -190,6 +190,12 @@ Route::group(['namespace' => 'UserController'], function() {
     Route::get('xem-gio-hang',['as'=>'xemgiohang','uses'=>'InCartController@xemgiohang']);
 
     Route::get('tim-san-pham',["as"=>"timsanpham","uses"=>'findProductController@timSanPham']);
+    
+    Route::get('down-excel',["as"=>"downloadExcel","uses"=>'findProductController@export']);
+    
+    Route::get('import-excel',["as"=>"importExcel","uses"=>'findProductController@import']);
+
+
 
 });
 

@@ -13,7 +13,10 @@ use BotMan\BotMan\BotMan;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use Illuminate\Http\Request;  
-
+// this is for Excel file
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
 
 class ChatFromDBConversation extends Conversation
 {
@@ -36,6 +39,7 @@ class ChatFromDBConversation extends Conversation
                          foreach($anwserResults as $child) 
                          {
                               $this->say("$child->content");
+                              
                          }
                          
                     }

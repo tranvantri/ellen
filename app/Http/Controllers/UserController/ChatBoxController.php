@@ -61,6 +61,7 @@ class ChatBoxController extends Controller
           
      }
      public function handleFromDB($bot){
+          /** get question of User and then anwser with data from database */
           $bot->startConversation(new ChatFromDBConversation);
      }
 
