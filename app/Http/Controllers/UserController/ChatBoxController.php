@@ -20,6 +20,7 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\BotMan;
 use App\Conversations\OnboardingConversation;
 use App\Conversations\CheckUserInformationForBillConversation;
+use App\Conversations\ChatFromDBConversation;
 
 // end for Botman usage
 
@@ -58,6 +59,9 @@ class ChatBoxController extends Controller
           
           $bot->startConversation(new CheckUserInformationForBillConversation);
           
+     }
+     public function handleFromDB($bot){
+          $bot->startConversation(new ChatFromDBConversation);
      }
 
 }
