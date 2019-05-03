@@ -44,7 +44,8 @@ class ChatFromDBConversation extends Conversation
                          
                     }
                     else{
-                         $this->say('Gonna mail you when i got more information');
+                         // question without anwser in database - table [botanwser]
+                         $this->say('Gonna mail you when i got more information !');
                     }
                }
                else{
