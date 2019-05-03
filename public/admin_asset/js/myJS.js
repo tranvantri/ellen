@@ -1031,7 +1031,7 @@ $(document).ready(function() {
 		}
 	});
 
-		$('.chatbot-excel, .btn-export').click(function (e) { 
+		$('.chatbot-excel').click(function (e) { 
 			// console.log('dasd');
 			// e.preventDefault();
 			$('#loadding-chatbot').css({
