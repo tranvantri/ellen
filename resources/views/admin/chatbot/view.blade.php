@@ -22,16 +22,15 @@
                 <div class="alert alert-success">{{session('thongbao')}}</div>
                 @endif
             </div>
-            <form  method="POST">
+            <form action="{{ route('importExcel') }}" enctype="multipart/form-data"  method="POST">
                 {{ csrf_field() }}
                 <div class="col-lg-7" style="padding-bottom:120px">   
 
                     <div class="form-group">
                         <label>Chọn file</label>
-                        <input class="form-control" type="file" name="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required />
+                        <input class="form-control" type="file" name="import_file"  required />
                     </div>                                    
                     <button type="submit" id="submit"  class="btn btn-warning chatbot-excel">Tải lên</button>
-                                   
                 </div>
                 
             </form>

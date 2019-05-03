@@ -1033,7 +1033,7 @@ $(document).ready(function() {
 
 		$('.chatbot-excel, .btn-export').click(function (e) { 
 			// console.log('dasd');
-			e.preventDefault();
+			// e.preventDefault();
 			$('#loadding-chatbot').css({
 				opacity: 1,
 				visibility: 'visible',				
