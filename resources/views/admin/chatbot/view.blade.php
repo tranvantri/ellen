@@ -6,7 +6,7 @@
             <div class="col-lg-12">
                 <h1 class="page-header">Chatbot
                     <small><i class="fa fa-download"></i> Import</small>
-                    <small><a href="" class="btn btn-success btn-them btn-export"><i class="fa fa-upload"></i> Export</a></small>
+                    <small><a href="{{  route('downloadExcel') }}" class="btn btn-success btn-them btn-export"><i class="fa fa-upload"></i> Export</a></small>
                 </h1>                
             </div>
             <!-- /.col-lg-12 -->

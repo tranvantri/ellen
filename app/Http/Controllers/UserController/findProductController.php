@@ -26,15 +26,15 @@ class findProductController extends Controller
         return view('user/tatcasanpham',compact('products', 'dirName'));
 	}
 
-	public function export() 
-    {
-        return Excel::download(new AskExport, 'Asks.xlsx');
-    }
+	// public function export() 
+    // {
+    //     return Excel::download(new AskExport, 'Asks.xlsx');
+    // }
 	
-    public function import() 
-    {
-	Excel::import(new AskImport, 'asks.xlsx');
-    }
+    // public function import() 
+    // {
+	// Excel::import(new AskImport, 'asks.xlsx');
+    // }
 
 
 }
