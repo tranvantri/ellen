@@ -28,7 +28,7 @@
 
                     <div class="form-group">
                         <label>Chọn file</label>
-                        <input class="form-control" type="file" name="import_file"  required />
+                        <input class="form-control" required="" type="file" name="import_file"  required />
                     </div>                                    
                     <button type="submit" id="submit"  class="btn btn-warning chatbot-excel">Tải lên</button>
                 </div>

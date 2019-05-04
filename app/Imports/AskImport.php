@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Ask;
+use App\ChatBot;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 
@@ -11,11 +11,11 @@ class AskImport implements ToModel
 
     public function model(array $row)
     {
-        return new Ask([
+        return new ChatBot([
             //
             'id'        => $row[0],
-            'content'    => $row[1],
-            'enable' => $row[2],
+            'ask'    => $row[1],
+            'answer' => $row[2],
         ]);
     }
 }

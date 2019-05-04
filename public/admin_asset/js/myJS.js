@@ -1042,6 +1042,33 @@ $(document).ready(function() {
 				visibility: 'visible',					
 			});
 		});
+
+		if($('.group-input').length == 1){
+			$('#xoa-cauhoi').attr('disabled', 'disabled');
+		}
+
+		$('#them-cauhoi').click(function(event) {			
+			$('#group-input').append(
+			 	'<input class="form-control group-input" required="" style="margin-top: 4px;" type="text" name="answer[]" placeholder="Nhập câu trả lời"/>'
+			 );
+			if($('.group-input').length > 1){
+				$('#xoa-cauhoi').removeAttr('disabled');
+			}
+			if($('.group-input').length == 4){
+				$('#them-cauhoi').attr('disabled', 'disabled');
+			}
+		});
+
+		$('#xoa-cauhoi').click(function(event) {			
+			$('#group-input').children('input.group-input:last-child()').remove();
+			if($('.group-input').length == 1){
+				$('#xoa-cauhoi').attr('disabled', 'disabled');
+			}
+			if($('.group-input').length < 4){
+				$('#them-cauhoi').removeAttr('disabled');
+			}
+		});
+
 	
 
 	// //Xử lý chọn sản phẩm trang khuyren mãi

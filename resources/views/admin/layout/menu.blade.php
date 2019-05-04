@@ -92,13 +92,16 @@
                 <!-- /.nav-second-level -->
             </li>
             <li>
-                <a href="admin/chatbot/view"><i class="fa fa-file-excel-o fa-fw"></i> Chatbot<span class="fa arrow"></span></a>
-                {{-- <ul class="nav nav-second-level">
+                <a ><i class="fa fa-comment-o"></i> Chatbot<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
                     <li>
-                        <a href="admin/user/list"><i class="fa fa-list"></i> Danh sách User</a>
+                        <a href="{{Route('listchatbot')}}"><i class="fa fa-list"></i> Quản lý câu hỏi</a>
                     </li>
-                   
-                </ul> --}}
+                    <li>
+                        <a href="admin/chatbot/view"><i class="fa fa-file-excel-o fa-fw"></i> Import/Export file<span class="fa arrow"></span></a>
+                    </li>
+                    
+                </ul>
                 <!-- /.nav-second-level -->
             </li>
         </ul>

@@ -1,17 +1,16 @@
 <?php
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ask extends Model
+class ChatBot extends Model
 {
-    protected $table = "ask";
+    protected $table = "chatbot";
     public $timestamps = false;
 
     protected $fillable = [
-     'id', 'content', 'password','enable'
- ];
+     'ask','answer'
+ 	];
 
 
 }

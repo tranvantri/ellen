@@ -28,17 +28,15 @@ class ChatFromDBConversation extends Conversation
           $this->ask('What can i do for you ?!', function(Answer $answer) {    
                $this->manAsk = $answer->getText();  // man ask a question
                // get the question from DB
-               $result = DB::table('ask')->where('content','LIKE',"%". $this->manAsk ."%")->first();
+               $result = DB::table('chatbot')->where('ask','LIKE',"%". $this->manAsk ."%")->first();
                if($result){
-                    $anwserResults = DB::table('botanwser')
-                         ->where('idAsk','=',$result->id)
-                         ->get();
+                    $anwserResults = json_decode($result->answer);
                     
-                    if($anwserResults->count() > 0)
+                    if(count($anwserResults) > 0)
                     {
                          foreach($anwserResults as $child) 
                          {
-                              $this->say("$child->content");
+                              $this->say("$child");
                               
                          }
                          
