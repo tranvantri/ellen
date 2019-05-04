@@ -101,6 +101,12 @@
                 </ul> --}}
                 <!-- /.nav-second-level -->
             </li>
+
+            <li>
+                <a href="admin/chatbot/anwser/view">
+                    ChatBot Anwser
+                </a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar-collapse -->

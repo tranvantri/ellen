@@ -153,12 +153,20 @@ Route::group(['namespace' => 'AdminManager'], function() {
         /*Chatbot*/
         Route::group(['prefix' => 'chatbot'], function() {
             Route::get('view', 'ChatBotController@getView')->name('view_chatbox_admin');     
+            
+            Route::get('anwser/view', 'ChatBotController@getViewAnwser')->name('view_chatbox_anwser');     
 
             Route::post('import',["as"=>"importExcel","uses"=>'ChatBotController@import']);  
 
-
             Route::get('down-excel',["as"=>"downloadExcel","uses"=>'ChatBotController@export']);
             
+            
+            Route::post('import-bot-anwser',["as"=>"importExcelAnwser","uses"=>'ChatBotController@importExcelAnwser']);  
+
+            Route::get('export-excel-anwser',["as"=>"exportExcelAnwser","uses"=>'ChatBotController@exportExcelAnwser']);
+            
+
+
         });
         
     });
