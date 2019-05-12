@@ -44,8 +44,6 @@ class ChatBotController extends Controller
       'ask'=>$request->ask,
       'answer'=>$answer
     ]);
-
-    
     return redirect('admin/chatbot/edit/'.$id)->with('thongbao','Sửa thành công!');
   }
 

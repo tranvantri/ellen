@@ -19,7 +19,7 @@ class CheckInforConversation extends Conversation
                ->fallback('Unable to ask question')
                ->callbackId('ask_reason')
                ->addButtons([
-                    Button::create('Hell yeh')->value('yes'),
+                    Button::create('Yes')->value('yes'),
                     Button::create('No')->value('no'),
                ]);
                return $this->ask($question, function (Answer $answer) {
@@ -27,7 +27,7 @@ class CheckInforConversation extends Conversation
                          if ($answer->getValue() === 'yes') {
                               //$joke = json_decode(file_get_contents('http://api.icndb.com/jokes/random'));
                               //$this->say($joke->value->joke);
-                              $this->say('Glad you are here!');
+                              $this->say('Glad it is true!');
                     } 
                     else {
                          //$this->say(Inspiring::quote());

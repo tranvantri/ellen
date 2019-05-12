@@ -26,6 +26,9 @@ use App\Conversations\ChatFromDBConversation;
 
 class ChatBoxController extends Controller
 {   
+     /**
+      * show the categories
+      */
      public function handleGetTitles($bot){
           $cateGroup = DB::select('select * from category_group');
           $bot->reply('Look what i found for you: ');

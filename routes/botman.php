@@ -18,7 +18,7 @@ use App\Conversations\CheckBillConversation;
 $botman = resolve('botman');
 
 /* Nhóm kịch bản đơn giản */
-$botman->hears('Hi', function ($bot) {
+$botman->hears('Hi|Hello', function ($bot) {
     $bot->reply('Hello there!');
 });
 
@@ -76,7 +76,7 @@ $botman->hears('chat', function($bot) {
 $botman->hears("forget me", function ($bot) {
     // Delete all stored information. 
     $bot->userStorage()->delete();
-    $bot->reply('Sorry to see you go :( ');
+    $bot->reply('Clear your information !');
 });
 
 
@@ -85,9 +85,9 @@ $botman->hears("who am i", function ($bot) {
     if ($user) {
         $message = '-------------------------------------- <br>';
         $message .= 'You are : ' . $bot->userStorage()->get('name') . '<br>';
-        $message .= 'Your email is '.$bot->userStorage()->get('email'). '<br>';
-        $message .= 'You are '.$bot->userStorage()->get('age').' years old.' . '<br>';
-        $message .= 'Your address is '.$bot->userStorage()->get('address'). '<br>';
+        $message .= 'Your email is: '.$bot->userStorage()->get('email'). '<br>';
+        $message .= 'You are: '.$bot->userStorage()->get('age').' years old.' . '<br>';
+        $message .= 'Your address is: '.$bot->userStorage()->get('address'). '<br>';
         
         $message .= '---------------------------------------';
         $bot->reply('Here is your information. <br>' . $message);
