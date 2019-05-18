@@ -143,7 +143,7 @@
 												</div>
 
 												<!-- <a href="{{ route('cart.store') }}" > -->
-													<button type="submit" class="btn btn-block" 
+													<button id="btn_active_socket" type="submit" class="btn btn-block" 
 													{{ Cart::count()>0 ? '' : 'disabled' }}>Mua ngay</button>
 													<!-- </a> -->
 													

@@ -4,12 +4,19 @@
 <script type="text/javascript" src="asset/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="asset/js/jquery.easing.1.3.js"></script>
 
-<script type="text/javascript" src="asset/js/myJs.js"></script>
 <script type="text/javascript" src="asset/fancybox-2.1.7/lib/jquery.mousewheel.pack.js"></script>
 <script type="text/javascript" src="asset/fancybox-2.1.7/source/jquery.fancybox.pack.js"></script>
 <script type="text/javascript" src="asset/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
-
+{{--  <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>  --}}
+<script type="text/javascript" src="asset/js/socket2.js"></script>
 <script type="text/javascript" src="asset/js/myScript.js"></script>
+
+
+<script type="text/javascript" src="asset/js/myJs.js"></script>
+
+
+
+
 
 {{--  <div id="fb-root"></div>
 <script>(function(d, s, id) {
