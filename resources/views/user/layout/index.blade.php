@@ -33,6 +33,8 @@
 
 	@include('user.libraries.jsCode')
 
+	@yield('script')
+
 
 </body>
 </html>

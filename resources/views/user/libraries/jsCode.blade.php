@@ -10,8 +10,6 @@
 {{--  <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>  --}}
 <script type="text/javascript" src="asset/js/socket2.js"></script>
 <script type="text/javascript" src="asset/js/myScript.js"></script>
-
-
 <script type="text/javascript" src="asset/js/myJs.js"></script>
 
 
@@ -28,9 +26,6 @@
 }(document, 'script', 'facebook-jssdk'));</script>  --}}
 
 
-<script>
-	
-</script>
 
 <script>
 	// Feel free to change the settings on your need

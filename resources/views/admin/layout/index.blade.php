@@ -81,6 +81,7 @@
     <script src="vendor/laravel-filemanager/js/lfm.js"></script>
     <script src="admin_asset/js/fSelect.js"></script>
     <script src="dropzone/dist/dropzone.js"></script>  
+    <script type="text/javascript" src="asset/js/socket2.js"></script>
     <script src="admin_asset/js/myJS.js"></script>
      
 
@@ -102,7 +103,17 @@
         
     </script>
 
+<script>
+        var socket = io('http://localhost:3000');
 
+        socket.on("clicked-button",function(){
+            //notifyMe();
+            alert("địt mẹ mày");
+            console.log("địt cha mày");
+    
+        });
+   
+</script>
     
 </body>
 

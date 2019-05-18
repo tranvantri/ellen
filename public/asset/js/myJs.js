@@ -1,19 +1,11 @@
 
-var socket = io('http://localhost:3000');
 
 
 
 
 $(document).ready(function() {
 	
-	$("#btn_active_socket").click(function(event){
-		
-		socket.emit("btnClick");
-		socket.on("clicked",function(){
-			console.log("clicked");
-		});
-		event.preventDefault();
-	});
+	
 	// *************************************XU LY NUT SEARCH****************************************
 	$('.icon-search-toggle').click(function(event) {
 		$('.search').toggleClass('active');

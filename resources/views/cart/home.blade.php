@@ -117,7 +117,7 @@
 											@endif
 										</div>
 										<div class="contact-form">
-											<form action="{{ route('cart.store') }}" id="formOrder">
+											{{--  <form action="{{ route('cart.store') }}" id="formOrder">  --}}
 												<input type="hidden" name="_token" value="{{ csrf_token() }}">
 												<div class="form-group">
 													<input type="text" name="name" id="name" class="form-control" placeholder="Tên người nhận"
@@ -143,11 +143,11 @@
 												</div>
 
 												<!-- <a href="{{ route('cart.store') }}" > -->
-													<button id="btn_active_socket" type="submit" class="btn btn-block" 
+													<button id="btn_active_socket" type="submit" class="btn_active_socket btn btn-block" 
 													{{ Cart::count()>0 ? '' : 'disabled' }}>Mua ngay</button>
 													<!-- </a> -->
 													
-												</form>
+												{{--  </form>  --}}
 											</div>
 										</div> <!-- end div thông tin liên hệ -->
 									</div>
@@ -158,6 +158,56 @@
 				</div>
 			</div>
 		</div>
+		<p id="demo1">p</p>
 	</section><!-- END CONTENT -->
 
+
+
 	@endsection
+
+@section('script')
+<script>
+	var socket = io('http://localhost:3000');
+	$(document).on('click', '.btn_active_socket',function(){
+		socket.emit("btnClick");
+		// console.log('aaa');
+	});
+
+	socket.on("clicked-button",function(){
+		//notifyMe();
+
+	});
+
+	function notifyMe() {
+		if (!("Notification" in window)) {
+		  alert("This browser does not support desktop notification");
+		}
+		else if (Notification.permission === "granted") {
+			 var options = {
+				    body: "Vui lòng kiểm tra mail của bạn!",
+				    icon: "icon.jpg",
+				    dir : "ltr"
+				 };
+			   var notification = new Notification("Đặt hàng thành công",options);
+		}
+		else if (Notification.permission !== 'denied') {
+		  Notification.requestPermission(function (permission) {
+		    if (!('permission' in Notification)) {
+			 Notification.permission = permission;
+		    }
+		  
+		    if (permission === "granted") {
+			 var options = {
+				  body: "Vui lòng kiểm tra mail của bạn!",
+				  icon: "icon.jpg",
+				  dir : "ltr"
+			   };
+			 var notification = new Notification("Đặt hàng thành công",options);
+		    }
+		  });
+		}
+	   }
+
+
+</script>
+@endsection
