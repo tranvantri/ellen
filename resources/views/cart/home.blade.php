@@ -158,7 +158,7 @@
 				</div>
 			</div>
 		</div>
-		<p id="demo1">p</p>
+		<p id="demo1"></p>
 	</section><!-- END CONTENT -->
 
 
@@ -175,6 +175,7 @@
 
 	socket.on("clicked-button",function(){
 		//notifyMe();
+		alert("click");
 
 	});
 
