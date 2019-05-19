@@ -172,4 +172,16 @@
 		</div>
 	</div> --}}
 	
+	
+@endsection
+@section('yield')
+<script>
+		{{--  var socket = io('http://localhost:3000');
+		socket.on("clicked-button",function(){
+			//notifyMe();
+			alert("click");
+	
+		});  --}}
+</script>
+
 @endsection

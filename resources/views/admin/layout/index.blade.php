@@ -103,24 +103,16 @@
         
     </script>
 
-<script>
-        
-        socket.on("connect",function(){
-            socket.on("clicked-button",function(){
-                //notifyMe();
-                alert("địt mẹ mày");
-                console.log("địt cha mày");
-        
-            });
-        });
-        socket.on("admin",function(){
+{{--  <script type="text/javascript">
+        var socket = io('http://localhost:3000');
+
+        socket.on("clicked-button",function(){
             //notifyMe();
-            alert("địt mẹ mày");
-            console.log("địt cha mày");
-            socket.emit('admin2');
+            alert("click from admin");
         });
-   
-</script>
+
+
+</script>  --}}
     
 </body>
 

@@ -1,11 +1,9 @@
 //user
 
-
+var socket = io('http://localhost:3000');
 
 
 $(document).ready(function() {
-	
-	
 	// *************************************XU LY NUT SEARCH****************************************
 	$('.icon-search-toggle').click(function(event) {
 		$('.search').toggleClass('active');

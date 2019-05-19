@@ -2,18 +2,32 @@
 
 var socket = io('http://localhost:3000');
 $(document).ready(function() {
-	
+	// socket.on('connect',function(){
+	// 	console.log("connect admin");
+
+	// 	socket.on("clicked-button",function(){
+	// 		//notifyMe();
+	// 		alert("click");
+	  
+	// 	 });
+	// });
+	socket.on("clicked-button",function(){
+		notifyMe();
+		//alert("click admin js");
+  
+	 });
+
 	function notifyMe() {
 		if (!("Notification" in window)) {
 		  alert("This browser does not support desktop notification");
 		}
 		else if (Notification.permission === "granted") {
 			 var options = {
-				    body: "Vui lòng kiểm tra mail của bạn!",
+				    body: "Someone has just bought your items. Please check Bill Control!",
 				    icon: "icon.jpg",
 				    dir : "ltr"
 				 };
-			   var notification = new Notification("Đặt hàng thành công",options);
+			   var notification = new Notification("Money is coming!",options);
 		}
 		else if (Notification.permission !== 'denied') {
 		  Notification.requestPermission(function (permission) {
@@ -23,11 +37,11 @@ $(document).ready(function() {
 		  
 		    if (permission === "granted") {
 			 var options = {
-				  body: "Vui lòng kiểm tra mail của bạn!",
+				  body: "Someone has just bought your items. Please check Bill Control!!",
 				  icon: "icon.jpg",
 				  dir : "ltr"
 			   };
-			 var notification = new Notification("Đặt hàng thành công",options);
+			 var notification = new Notification("Hey",options);
 		    }
 		  });
 		}
