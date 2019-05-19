@@ -33,7 +33,7 @@ class InCartController extends Controller
      
       $message->to($data['bill']->email);
       
-      $message->bcc('tomiot8488@gmail.com', 'Quản trị');
+      $message->bcc('tomiot8485@gmail.com', 'Quản trị');
         // $message->cc('john@johndoe.com', 'John Doe');
       
         // $message->replyTo('john@johndoe.com', 'John Doe');
