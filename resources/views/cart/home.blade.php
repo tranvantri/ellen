@@ -117,7 +117,7 @@
 											@endif
 										</div>
 										<div class="contact-form">
-											{{--  <form action="{{ route('cart.store') }}" id="formOrder">  --}}
+											<form action="{{ route('cart.store') }}" id="formOrder">
 												<input type="hidden" name="_token" value="{{ csrf_token() }}">
 												<div class="form-group">
 													<input type="text" name="name" id="name" class="form-control" placeholder="Tên người nhận"
@@ -147,7 +147,7 @@
 													{{ Cart::count()>0 ? '' : 'disabled' }}>Mua ngay</button>
 													<!-- </a> -->
 													
-												{{--  </form>  --}}
+												</form>
 											</div>
 										</div> <!-- end div thông tin liên hệ -->
 									</div>

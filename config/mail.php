@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.zoho.com'),
+    'host' => env('MAIL_HOST', 'smtp.gmail.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'ellen@ellen.com.vn'),
+        'address' => env('MAIL_FROM_ADDRESS', 'tvtri1997@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Ellen Store'),
     ],
 
@@ -84,9 +84,9 @@ return [
     |
     */
 
-    'username' => env('ellen@ellen.com.vn '),
+    'username' => env('MAIL_USERNAME'),
 
-    'password' => env('TpM@qSKWw_8}'),
+    'password' => env('MAIL_PASSWORD'),
 
     /*
     |--------------------------------------------------------------------------
