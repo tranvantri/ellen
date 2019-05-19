@@ -123,7 +123,6 @@ class CartController extends Controller
             print_r("None content");
         }
 
-
         return Redirect::action('UserController\InCartController@xemgiohang');
          
 
