@@ -169,14 +169,14 @@
 <script>
 	var socket = io('http://localhost:3000');
 	$(document).on('click', '.btn_active_socket',function(){
-		//socket.emit("btnClick");
+		socket.emit("btnClick");
 		var iduser = $(this).data("iduser");
 		console.log(iduser);
 	});
 	//var socket = io('http://localhost:3000');
 	socket.on("clicked-button",function(){
 		
-		//notifyMe();
+		notifyMe();
 	});
 
 	function notifyMe() {
