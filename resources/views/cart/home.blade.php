@@ -143,7 +143,7 @@
 												</div>
 
 												<!-- <a href="{{ route('cart.store') }}" > -->
-													<button data-iduser="{{ Auth::id() }}" id="btn_active_socket" type="submit" class="btn_active_socket btn btn-block" 
+													<button data-username="{{Auth::user()->name}}" data-iduser="{{ Auth::id() }}" id="btn_active_socket" type="submit" class="btn_active_socket btn btn-block" 
 													{{ Cart::count()>0 ? '' : 'disabled' }}>Mua ngay</button>
 													<!-- </a> -->
 													
@@ -169,15 +169,15 @@
 <script>
 	var socket = io('http://localhost:3000');
 	$(document).on('click', '.btn_active_socket',function(){
+		{{--  var iduser = $(this).data("iduser");
+		console.log(iduser);  --}}
 		socket.emit("btnClick");
-		var iduser = $(this).data("iduser");
-		console.log(iduser);
 	});
-	//var socket = io('http://localhost:3000');
-	socket.on("clicked-button",function(){
+	
+	{{--  socket.on("clicked-button",function(){
 		
 		notifyMe();
-	});
+	});  --}}
 
 	function notifyMe() {
 		if (!("Notification" in window)) {
