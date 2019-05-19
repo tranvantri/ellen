@@ -62,7 +62,8 @@
                 <!-- /.nav-second-level -->
             </li>
             <li>
-                <a href="admin/bill/list"><i class="fa fa-money"></i> Hóa đơn<span class="fa arrow"></span></a>
+                <a href="admin/bill/list"><i class="fa fa-money"></i> Hóa đơn <span 
+                style="padding: 5px;background: #ff0000b3;color: white;border-radius: 50%;">{{$countBill_CTT}}</span><span class="fa arrow"></span></a>
                 {{-- <ul class="nav nav-second-level">
                     <li>
                         <a href="admin/bill/list"><i class="fa fa-list"></i> Danh sách hóa đơn</a>
