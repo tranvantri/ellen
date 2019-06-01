@@ -161,21 +161,18 @@
 		<p id="demo1"></p>
 	</section><!-- END CONTENT -->
 
+<input type="hidden" value="{{auth::id()}}" id="iduser" >
 
-
-	@endsection
+@endsection
 
 @section('script')
 <script>
 	var socket = io('http://localhost:3000');
 	$(document).on('click', '.btn_active_socket',function(){
-		{{--  var iduser = $(this).data("iduser");
-		console.log(iduser);  --}}
 		socket.emit("btnClick");
 	});
 	
 	socket.on("clicked-button",function(){
-		
 		notifyMe();
 	}); 
 
