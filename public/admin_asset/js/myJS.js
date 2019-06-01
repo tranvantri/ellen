@@ -2,15 +2,6 @@
 
 var socket = io('http://localhost:3000');
 $(document).ready(function() {
-	// socket.on('connect',function(){
-	// 	console.log("connect admin");
-
-	// 	socket.on("clicked-button",function(){
-	// 		//notifyMe();
-	// 		alert("click");
-	  
-	// 	 });
-	// });
 	socket.on("clicked-button",function(){
 		notifyMe();
 		//alert("click admin js");
