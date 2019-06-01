@@ -95,24 +95,11 @@
         $(document).ready(function() {
             $('#dataTables-example').DataTable({
                 responsive: true
-            });  
-            // $('#dataTables-history').DataTable({
-            //     responsive: true,               
-            // });               
+            });               
         });
         
     </script>
 
-{{--  <script type="text/javascript">
-        var socket = io('http://localhost:3000');
-
-        socket.on("clicked-button",function(){
-            //notifyMe();
-            alert("click from admin");
-        });
-
-
-</script>  --}}
     
 </body>
 
