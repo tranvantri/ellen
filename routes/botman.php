@@ -18,8 +18,13 @@ use App\Conversations\CheckBillConversation;
 $botman = resolve('botman');
 
 /* Nhóm kịch bản đơn giản */
-$botman->hears('Hi|Hello', function ($bot) {
-    $bot->reply('Hello there!');
+$botman->hears('Hi|Hello|Xin chào|Chào', function ($bot) {
+    $bot->reply('Chào bạn!');
+});
+
+
+$botman->hears('.*Bonjour.*', function ($bot) {
+    $bot->reply('Catch Bonjour!');
 });
 
 $botman->hears("call me {name}", function ($bot, $name) {
@@ -31,6 +36,11 @@ $botman->hears("call me {name}", function ($bot, $name) {
 
     $bot->reply('I will call you '.$name);
 });
+
+$botman->hears("tôi là {name}, năm nay {age} tuổi", function ($bot, $name,$age) {
+    $bot->reply('Chào '.$name . ', năm nay ' .$name . ' '. $age. ' tuổi ha!');
+});
+
 
 $botman->hears('what is my name', function ($bot) {
     $name = $bot->userStorage()->get('name');
@@ -118,6 +128,19 @@ $botman->hears('bill','App\Http\Controllers\UserController\ChatBoxController@han
 
 $botman->hears('ask','App\Http\Controllers\UserController\ChatBoxController@handleFromDB');
 
+/**
+ * Stop conversation
+ */
+$botman->hears('stop', function($bot) {
+	$bot->reply('Conversation stopped');
+})->stopsConversation();
+
+/**
+ * Pause conversation
+ */
+
+
+ 
 
 /***----------- Kết thúc Nhóm kịch bản lấy dữ liệu từ DB ***************** */
 
@@ -125,4 +148,9 @@ $botman->hears('ask','App\Http\Controllers\UserController\ChatBoxController@hand
 $botman->fallback(function($bot){
     $bot->reply("Sorry i don't know what are you talking about!");
 });
-$botman->hears('Start conversation', BotManController::class.'@startConversation');
+
+$botman->exception(Exception::class, function($exception, $bot) {
+	$bot->reply('Sorry, something went wrong');
+});
+
+

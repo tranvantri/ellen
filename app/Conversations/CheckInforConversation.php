@@ -12,7 +12,7 @@ use BotMan\BotMan\BotMan;
 
 class CheckInforConversation extends Conversation
 {
-     
+   
      public function askResult()
      {
           $question = Question::create("Correct?")
@@ -25,16 +25,13 @@ class CheckInforConversation extends Conversation
                return $this->ask($question, function (Answer $answer) {
                     if ($answer->isInteractiveMessageReply()) {
                          if ($answer->getValue() === 'yes') {
-                              //$joke = json_decode(file_get_contents('http://api.icndb.com/jokes/random'));
-                              //$this->say($joke->value->joke);
                               $this->say('Glad it is true!');
                     } 
                     else {
-                         //$this->say(Inspiring::quote());
                          $this->say('Which one is wrong?!');
                     }
                }
-               });
+          });
      }
 
      public function run()
