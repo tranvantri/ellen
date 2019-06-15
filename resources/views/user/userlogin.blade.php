@@ -10,10 +10,15 @@
 				<h3 class="signin-title text-center">Đăng nhập</h3>
 				<div class="container">
 					<div class="signin-content">
-						<div>
-							<a href="{{ url('auth/google') }}" class="btn-fb-signin">
-							<img src="https://accounts.google.com/favicon.ico" alt=""> Đăng nhập bằng Google</a>
+						<div style="margin-bottom: 0.5rem;">
+							<a href="{{ url('auth/google') }}" class="btn-gg-signin">
+							<i class="fa fa-google" aria-hidden="true"></i> Đăng nhập bằng Google</a>
 						</div>
+						
+						<div>
+							<a href="#" class="btn-fb-signin"><i class="fa fa-facebook" aria-hidden="true"></i> Đăng nhập bằng Facebook</a>
+						</div>
+
 						<div class="phan-cach">
 							<hr>
 							<span class="phan-cach-text">Hoặc</span>

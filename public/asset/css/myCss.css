@@ -1555,7 +1555,7 @@ i.fa {
     display: block;
 }
 
-.btn-fb-signin , .signin-form-btn{
+.btn-gg-signin, .btn-fb-signin, .signin-form-btn{
     display: block;
     width: 100%;
     padding-left: 5px;
@@ -1578,9 +1578,20 @@ i.fa {
     cursor: pointer;
 }
 
-.btn-fb-signin:hover{
+.btn-fb-signin{
+    background-color: #4267b2;
+}
+
+.btn-gg-signin:hover{
     background-color: #e24334!important;
     border: 1px solid #e24334!important;
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn-fb-signin:hover{
+    background-color: #4171d4!important;
+    border: 1px solid #4171d4!important;
     color: #fff;
     text-decoration: none;
 }
