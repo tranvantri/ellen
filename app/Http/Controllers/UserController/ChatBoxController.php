@@ -59,13 +59,32 @@ class ChatBoxController extends Controller
      }
 
      public function handleGetBillID($bot){
-          
           $bot->startConversation(new CheckUserInformationForBillConversation);
           
      }
      public function handleFromDB($bot){
           /** get question of User and then anwser with data from database */
           $bot->startConversation(new ChatFromDBConversation);
+     }
+     public function handleGetDiscount($bot){
+          $now = date("Y-m-d");
+          $results = DB::table('promotion')
+               ->where('start_date_sale','<',$now)
+               ->where('end_date_sale','>',$now)
+               ->where('id','<>',1)
+               ->where('enable',1)
+               ->get();
+          if($results->count() > 0){
+               $bot->reply('Danh sách các khuyến mãi hiện tại của chúng tôi dành cho bạn: ');
+               foreach($results as $child){
+                    $message = OutgoingMessage::create('<a target="_blank" href="/khuyen-mai/'.str_slug($child->name).'/'.$child->id.'"><b>'.$child->name."</b> giảm giá <b>". $child->per_decr. '</b>% <br/> kết thúc vào ' . $child->end_date_sale .'</a>');
+                    $bot->reply($message);      
+               }   
+          }
+          else{
+               // không có sp trong DB
+               $bot->reply("Hiện tại chúng tôi không có chương trình khuyến mãi nào!");
+          }
      }
 
 }

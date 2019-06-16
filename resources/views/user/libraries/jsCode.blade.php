@@ -34,7 +34,7 @@
 		// chatServer: 'chat.php',
 		title: 'Ellen Store',
 		introMessage: 'Ellen xin chào!',
-		placeholderText: 'Ask Me Something',
+		placeholderText: 'Chat với Ellen',
 		mainColor: '#ff51a8',
 		bubbleBackground: '#00b7f3',
 		aboutText: '',
@@ -42,6 +42,7 @@
 		headerTextColor:'#ffffff',
 		// desktopHeight: '25rem',
 		// desktopWidth: '20rem',
+		
 	};
 </script>
 

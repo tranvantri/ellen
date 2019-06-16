@@ -9,32 +9,19 @@ use App\Conversations\OnboardingConversation;
 use App\Conversations\CheckInforConversation;
 use App\Conversations\CheckBillConversation;
 
-
-
-
-/**  --------- end conversation */
-
-
 $botman = resolve('botman');
 
 /* Nhóm kịch bản đơn giản */
-$botman->hears('Hi|Hello|Xin chào|Chào', function ($bot) {
+$botman->hears('Hi|Hello|Xin chào|Chào|Hey', function ($bot) {
     $bot->reply('Chào bạn!');
 });
 
-
-$botman->hears('.*Bonjour.*', function ($bot) {
-    $bot->reply('Catch Bonjour!');
-});
-
-$botman->hears("call me {name}", function ($bot, $name) {
-    // Store information for the currently logged in user.
-    // You can also pass a user-id / key as a second parameter.
+$botman->hears("Tôi tên là {name}", function ($bot, $name) {
     $bot->userStorage()->save([
         'name' => $name
     ]);
 
-    $bot->reply('I will call you '.$name);
+    $bot->reply('Xin chào '.$name.', bạn cần hỗ trợ gì ạ? ');
 });
 
 $botman->hears("tôi là {name}, năm nay {age} tuổi", function ($bot, $name,$age) {
@@ -42,79 +29,94 @@ $botman->hears("tôi là {name}, năm nay {age} tuổi", function ($bot, $name,$
 });
 
 
-$botman->hears('what is my name', function ($bot) {
+$botman->hears('Tôi tên gì|My name is', function ($bot) {
     $name = $bot->userStorage()->get('name');
-    $bot->reply('Yep, you are '.$name.' !');
+    $bot->reply('Chào '.$name.' !');
 });
 
-$botman->hears('i am ([0-9]+)', function ($bot,$age) {
-    $bot->reply('Got that, you are '.$age.' years old.');
+$botman->hears('([0-9]+) tuổi', function ($bot,$age) {
     $bot->userStorage()->save([
         'age'=>$age
     ]);
 });
-$botman->hears('how old am i', function ($bot) {
+$botman->hears('how old am i|tôi bao nhiêu tuổi|tuổi', function ($bot) {
     $age = $bot->userStorage()->get('age');
-    $bot->reply('You are '.$age.' years old.');
+    if(isset($age)){
+        $bot->reply('Bạn '.$age.' tuổi.');
+    }
+    else{
+        $bot->reply("Tôi chưa có thông tin về tuổi của bạn. Bạn sinh năm nào?");
+    }
 });
 
-$botman->hears('I want ([0-9]+) portions of (Cheese|Cake)', function ($bot, $amount, $dish) {
-    $bot->reply('You will get '.$amount.' portions of '.$dish.' served shortly.');
 
+$botman->hears('([0-9]+)', function ($bot,$year) {
+    $now = date('Y');
+    $age = $now - $year;
+    if($age < 100){
+        $bot->userStorage()->save([
+            'age'=>$age
+        ]);
+        $bot->reply("Bạn $age tuổi.");
+    }
+    else{
+        $bot->reply("Tôi chưa hiểu ý của bạn đâu!");
+    }
 });
 
-$botman->hears('my email is {email}', function ($bot,$email) {
-    $bot->reply('Oke. Your email is: '.$email);
+$botman->hears('email là {email}', function ($bot,$email) {
+    $bot->reply('Đã xác nhận email: '.$email);
     $bot->userStorage()->save([
         'email'=>$email
     ]);
 });
 
-$botman->hears('my address is {address}', function ($bot,$address) {
-    $bot->reply('Oke. Your address is: '.$address);
+$botman->hears('địa chỉ của tôi là {address}', function ($bot,$address) {
+    $bot->reply('Đã xác nhận: '.$address);
     $bot->userStorage()->save([
         'address'=>$address
     ]);
 });
 
-
+// hỏi thông tin người dùng, dùng cho việc quảng cáo marketing
 $botman->hears('chat', function($bot) {
     $bot->startConversation(new OnboardingConversation);
 });
 
 //******************************************** */
-$botman->hears("forget me", function ($bot) {
+$botman->hears("xóa|delete me", function ($bot) {
     // Delete all stored information. 
     $bot->userStorage()->delete();
-    $bot->reply('Clear your information !');
+    $bot->reply('Xóa thông tin của bạn hoàn tất !');
 });
 
-
-$botman->hears("who am i", function ($bot) {
-    $user = $bot->userStorage()->all();
-    if ($user) {
-        $message = '-------------------------------------- <br>';
-        $message .= 'You are : ' . $bot->userStorage()->get('name') . '<br>';
-        $message .= 'Your email is: '.$bot->userStorage()->get('email'). '<br>';
-        $message .= 'You are: '.$bot->userStorage()->get('age').' years old.' . '<br>';
-        $message .= 'Your address is: '.$bot->userStorage()->get('address'). '<br>';
-        
-        $message .= '---------------------------------------';
-        $bot->reply('Here is your information. <br>' . $message);
-
+$botman->hears("who am i|thông tin|tôi là ai", function ($bot) {
+    if(Auth::id()){
+        $result = DB::table('users')->where('id',Auth::id())->first();
+        $message = '--------<br>';
+        $message .= 'Tên của bạn : ' . $result->name . '<br>';
+        $message .= 'Email: '.$result->email. '<br>';
+        $message .= 'Số điện thoại: '.$result->phone. '<br>';
+        $message .= 'Địa chỉ nhà: '.$result->address. '<br>';
+        $bot->reply('Thông tin của bạn là:. <br>' . $message);
         $bot->startConversation(new CheckInforConversation);
-        
-
-    } else {
-        $bot->reply('I do not know you yet.');
+    }
+    else{
+        $user = $bot->userStorage()->all();
+        if ($user) {
+            $message = '-------- <br>';
+            $message .= 'Tên của bạn : ' . $bot->userStorage()->get('name') . '<br>';
+            $message .= 'Email: '.$bot->userStorage()->get('email'). '<br>';
+            $message .= 'Năm nay bạn: '.$bot->userStorage()->get('age').' tuổi.' . '<br>';
+            $message .= 'Địa chỉ nhà: '.$bot->userStorage()->get('address'). '<br>';
+            $bot->reply('Thông tin của bạn là:. <br>' . $message);
+            $bot->startConversation(new CheckInforConversation);
+        } else {
+            $bot->reply('Tôi chưa có thông tin về bạn.');
+        }
     }
 });
-
-//******************************************** */
-
-
 /** -     -------     ------- Kết thúc nhóm Kịch bản đơn giản */
-
 
 
 /**  *-----------Nhóm kịch bản lấy dữ liệu từ DB ***************** */
@@ -126,31 +128,29 @@ $botman->hears('show me {nameProduct}', 'App\Http\Controllers\UserController\Cha
 
 $botman->hears('bill','App\Http\Controllers\UserController\ChatBoxController@handleGetBillID');
 
-$botman->hears('ask','App\Http\Controllers\UserController\ChatBoxController@handleFromDB');
+/** danh sách trang hàng khuyến mãi */
+$botman->hears('discount|khuyến mãi|coupon','App\Http\Controllers\UserController\ChatBoxController@handleGetDiscount');
+/**
+ * Lấy thông tin từ bảng chatbot và trả lời theo KEY-VALUE
+ */
+$botman->hears('ask|hỏi','App\Http\Controllers\UserController\ChatBoxController@handleFromDB');
 
 /**
  * Stop conversation
  */
 $botman->hears('stop', function($bot) {
-	$bot->reply('Conversation stopped');
+	$bot->reply('Dừng trò chuyện');
 })->stopsConversation();
-
-/**
- * Pause conversation
- */
-
-
- 
 
 /***----------- Kết thúc Nhóm kịch bản lấy dữ liệu từ DB ***************** */
 
 //------------ Bộ câu hỏi ngoài xử lý   ------------------------------------
 $botman->fallback(function($bot){
-    $bot->reply("Sorry i don't know what are you talking about!");
+    $bot->reply("Xin lỗi tôi chưa hiểu!Bạn vui lòng chờ trong lúc admin liên hệ lại với bạn nhé. Xin cảm ơn!");
 });
 
 $botman->exception(Exception::class, function($exception, $bot) {
-	$bot->reply('Sorry, something went wrong');
+	$bot->reply('Opps, hỏng rồi! Tôi đang đi vắng, sẽ liên hệ ngay lại với bạn!');
 });
 
 

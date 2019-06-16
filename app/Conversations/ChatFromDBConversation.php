@@ -25,7 +25,7 @@ class ChatFromDBConversation extends Conversation
      public $QuestionID;
      public function askQuestion()
      {
-          $this->ask('What can i do for you ?!', function(Answer $answer) {    
+          $this->ask('Bạn cần giúp đỡ về vấn đề gì ạ?!', function(Answer $answer) {    
                $this->manAsk = $answer->getText();  // man ask a question
                // get the question from DB
                $result = DB::table('chatbot')->where('ask','LIKE',"%". $this->manAsk ."%")->first();
@@ -37,17 +37,17 @@ class ChatFromDBConversation extends Conversation
                          foreach($anwserResults as $child) 
                          {
                               $this->say("$child");
-                              
                          }
+                         $this->askQuestion();
                          
                     }
                     else{
                          // question without anwser in database - table [botanwser]
-                         $this->say('Gonna mail you when i got more information !');
+                         $this->say('Hiện tại chúng tôi đang cập nhật ! ');
                     }
                }
                else{
-                    $this->say("Sorry i don't get what you say !!");
+                    $this->say("Xin lỗi tôi chưa hiểu! Bạn vui lòng chờ trong lúc admin liên hệ lại với bạn nhé. Xin cảm ơn bạn!");
                     $this->askQuestion();
                }
           });               
@@ -57,7 +57,7 @@ class ChatFromDBConversation extends Conversation
 
      public function run()
      {
-          $this->say('Hi there !');
+          $this->say('Chào bạn !');
           $this->askQuestion();
      } 
 }

@@ -3,21 +3,20 @@ var socket = io('http://localhost:3000');
 $(document).ready(function () {
 	socket.on("admin-get-purchase", function () {
 		notifyMe();
-		console.log("???");
 	});
 
 	function notifyMe() {
 		if (!("Notification" in window)) {
-			alert("This browser does not support desktop notification");
+			alert("Trình duyrt65 không hỗ trợ thông báo");
 		}
 		else if (Notification.permission === "granted") {
 			var options = {
-				body: "Someone purchase your items. Pls check Bill!",
+				body: "Ai đó vừa đặt hàng trên Website!",
 				icon: "icon.jpg",
 				dir: "ltr",
 				data: "http://127.0.0.1:8000/admin/bill/list"
 			};
-			var notification = new Notification("Hey", options);
+			var notification = new Notification("Admin", options);
 			notification.onclick = function(e) {
 				window.location.href = e.target.data;
 			}
@@ -31,7 +30,7 @@ $(document).ready(function () {
 
 				if (permission === "granted") {
 					var options = {
-						body: "Someone purchase your items. Pls check Bill!",
+						body: "Ai đó vừa đặt hàng trên Website!",
 						icon: "icon.jpg",
 						dir: "ltr",
 						data: "http://127.0.0.1:8000/admin/bill/list"
