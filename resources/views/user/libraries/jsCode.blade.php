@@ -25,7 +25,7 @@
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>  --}}
 
-
+<script src="asset/js/widgetbotman.js"></script>
 
 <script>
 	// Feel free to change the settings on your need
@@ -46,4 +46,4 @@
 	};
 </script>
 
-<script src="asset/js/widgetbotman.js"></script>
+
