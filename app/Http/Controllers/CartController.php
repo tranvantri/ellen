@@ -23,24 +23,6 @@ class CartController extends Controller
 {
     public function index(Request $request)
     {
-/*
-            $id.time().uniqid(mt_rand(),true)
-            **** This function is used as:
-            uniqid() - this will generate the 13 character uniqid
-
-            mt_rand() - generates random number by using Mersenne Twister algorithim and is 4 times more fast then rand()
-
-            uniqid(mt_rand()) - prefixing the random generate number with uniqueid
-
-            uniqid(mt_rand(), true) - to get more strong random i am enabling entropy of uniqid by setting second parameter to 'true'
-
-            $id.time().uniqid(mt_rand(), true) - here $id may be userid, time() will generate current unix time stamp, lastly i will append with my uniqid(...)
-
-            *********************************************************************************
-
-            instance(Auth::user()->email)
-            *** lấy email của user đã login, sau đó lưu vào shoppingcart với giá trị email đó
-*/
         if(Auth::id())
         {
             /*User  login vào hệ thống*/
@@ -174,36 +156,8 @@ class CartController extends Controller
             /*User chưa login vào hệ thống*/
             return redirect()->route('loginUser');
         }
-
-        // $product = DB::table('product')->where('id',$id)->first();
-        // Cart::add($id,$product->name,1,$product->price,['size'=>'M','avatar'=>$product->avatar]);
-        // return Redirect::action('UserController\BeforeCartController@giohang');
     }
 
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    public function destroy($id)
-    {
-        //
-    }
-    public function create($productId)
-    {
-        
-    }
-
-    public function store(Request $request)
-    {
-        
-        
-    }
-
-    public function show($id)
-    {
-       
-       
-    }
 }
