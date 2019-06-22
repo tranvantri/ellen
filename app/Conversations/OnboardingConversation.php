@@ -21,7 +21,7 @@ class OnboardingConversation extends Conversation
 
      public function askFirstname()
      {
-          $this->ask('Hello! What is your firstname?', function(Answer $answer) {
+          $this->ask('Hello! Tên của bạn là gì?!', function(Answer $answer) {
                // Save result
                $this->firstname = $answer->getText();
 
@@ -33,21 +33,27 @@ class OnboardingConversation extends Conversation
 
      public function askAge()
      {
-          $this->ask('How old are you?', function(Answer $answer) {
+          $this->ask('Bạn bao nhiêu tuổi?', function(Answer $answer) {
                // Save result
                $this->age = $answer->getText();
-               $this->say('Got your age: '.$this->age);
-               $this->askAddress();
+               if($this->age <0 && $this->age > 200)
+               {
+                    $this->askAge();
+               }
+               else{
+                    $this->askAddress();
+               }
+               
           });
      }
 
      public function askAddress()
      {
-          $this->ask('And your address?', function(Answer $answer) {
+          $this->ask('Và địa chỉ nhà của bạn?', function(Answer $answer) {
                // Save result
                $this->address = $answer->getText();
 
-               $this->say('Now i see. Your address is: '.$this->address);
+               $this->say('OKAY, địa chỉ của bạn là : '.$this->address);
                
                $this->askEmail();
           });
@@ -55,11 +61,11 @@ class OnboardingConversation extends Conversation
 
      public function askEmail()
      {
-          $this->ask('One more thing - what is your email?', function(Answer $answer) {
+          $this->ask('Còn email của bạn?', function(Answer $answer) {
                // Save result
                $this->email = $answer->getText();
 
-               $this->say('Great - that is all we need, '.$this->firstname);
+               $this->say('Tuyệt - Cảm ơn thông tin của bạn, '.$this->firstname);
 
                //$this->bot->startConversation(new FavouriteLunchConversation());
                $this->bot->userStorage()->save([

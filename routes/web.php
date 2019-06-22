@@ -213,7 +213,3 @@ Route::get('auth/{provider}/callback',
 
 Route::match(['get', 'post'], '/botman', 'BotManController@handle');
 Route::get('/botman/tinker', 'BotManController@tinker');
-
-Route::get('/test',function(){
-    return view('home');
-});

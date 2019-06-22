@@ -8,75 +8,106 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 use App\Conversations\OnboardingConversation;
 use App\Conversations\CheckInforConversation;
 use App\Conversations\CheckBillConversation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
+use App\Http\Controllers\Controller;
+use App\Quotation;
+
+
 
 $botman = resolve('botman');
 
 /* Nhóm kịch bản đơn giản */
-$botman->hears('Hi|Hello|Xin chào|Chào|Hey', function ($bot) {
-    $bot->reply('Chào bạn!');
-});
 
-$botman->hears("Tôi tên là {name}", function ($bot, $name) {
-    $bot->userStorage()->save([
-        'name' => $name
-    ]);
-
-    $bot->reply('Xin chào '.$name.', bạn cần hỗ trợ gì ạ? ');
-});
-
-$botman->hears("tôi là {name}, năm nay {age} tuổi", function ($bot, $name,$age) {
-    $bot->reply('Chào '.$name . ', năm nay ' .$name . ' '. $age. ' tuổi ha!');
-});
-
-
-$botman->hears('Tôi tên gì|My name is', function ($bot) {
-    $name = $bot->userStorage()->get('name');
-    $bot->reply('Chào '.$name.' !');
-});
-
-$botman->hears('([0-9]+) tuổi', function ($bot,$age) {
-    $bot->userStorage()->save([
-        'age'=>$age
-    ]);
-});
-$botman->hears('how old am i|tôi bao nhiêu tuổi|tuổi', function ($bot) {
-    $age = $bot->userStorage()->get('age');
-    if(isset($age)){
-        $bot->reply('Bạn '.$age.' tuổi.');
+/** ******************************************************** */
+$botman->hears('.*', function ($bot) {
+    $incomingMessageText = $bot->getMessage()->getText();
+    $result = DB::table('chatbot')->where('ask','LIKE',"%". $incomingMessageText ."%")->first();
+    if($result){
+        $anwserResults = json_decode($result->answer);
+        
+        if(count($anwserResults) > 0)
+        {
+            foreach($anwserResults as $child) 
+            {
+                $bot->reply("$child");
+            }
+            
+                
+        }
+        else{
+                // question without anwser in database - table [botanwser]
+            $bot->reply('Hiện tại chúng tôi đang cập nhật ! ');
+        }
     }
     else{
-        $bot->reply("Tôi chưa có thông tin về tuổi của bạn. Bạn sinh năm nào?");
+        /** ********* HANDLE RESULTS NOT EXIST IN DB??  ***************** */
+        $botman->hears($incomingMessageText ."{name}", function ($bot, $name) {
+            $bot->userStorage()->save([
+                'name' => $name
+            ]);
+        
+            $bot->reply('Xin chào '.$name.', bạn cần hỗ trợ gì ạ? ');
+        });
+        
+        $botman->hears("tôi là {name}, năm nay {age} tuổi", function ($bot, $name,$age) {
+            $bot->reply('Chào '.$name . ', năm nay ' .$name . ' '. $age. ' tuổi ha!');
+        });
+        
+        
+        $botman->hears('Tôi tên gì|My name is', function ($bot) {
+            $name = $bot->userStorage()->get('name');
+            $bot->reply('Chào '.$name.' !');
+        });
+        
+        $botman->hears('([0-9]+) tuổi', function ($bot,$age) {
+            $bot->userStorage()->save([
+                'age'=>$age
+            ]);
+        });
+        $botman->hears('how old am i|tôi bao nhiêu tuổi', function ($bot) {
+            $age = $bot->userStorage()->get('age');
+            if(isset($age)){
+                $bot->reply('Bạn '.$age.' tuổi.');
+            }
+            else{
+                $bot->reply("Tôi chưa có thông tin về tuổi của bạn. Bạn sinh năm nào?");
+            }
+        });
+        
+        
+        $botman->hears('năm ([0-9]+)', function ($bot,$year) {
+            $now = date('Y');
+            $age = $now - $year;
+            if($age < 100){
+                $bot->userStorage()->save([
+                    'age'=>$age
+                ]);
+                $bot->reply("Bạn $age tuổi.");
+            }
+            else{
+                $bot->reply("Tôi chưa hiểu ý của bạn đâu!");
+            }
+        });
+        
+        $botman->hears('email là {email}', function ($bot,$email) {
+            $bot->reply('Đã xác nhận email: '.$email);
+            $bot->userStorage()->save([
+                'email'=>$email
+            ]);
+        });
+        
+        $botman->hears('địa chỉ của tôi là {address}', function ($bot,$address) {
+            $bot->reply('Đã xác nhận: '.$address);
+            $bot->userStorage()->save([
+                'address'=>$address
+            ]);
+        });
+    
     }
 });
-
-
-$botman->hears('([0-9]+)', function ($bot,$year) {
-    $now = date('Y');
-    $age = $now - $year;
-    if($age < 100){
-        $bot->userStorage()->save([
-            'age'=>$age
-        ]);
-        $bot->reply("Bạn $age tuổi.");
-    }
-    else{
-        $bot->reply("Tôi chưa hiểu ý của bạn đâu!");
-    }
-});
-
-$botman->hears('email là {email}', function ($bot,$email) {
-    $bot->reply('Đã xác nhận email: '.$email);
-    $bot->userStorage()->save([
-        'email'=>$email
-    ]);
-});
-
-$botman->hears('địa chỉ của tôi là {address}', function ($bot,$address) {
-    $bot->reply('Đã xác nhận: '.$address);
-    $bot->userStorage()->save([
-        'address'=>$address
-    ]);
-});
+/** ******************************************************** */
 
 // hỏi thông tin người dùng, dùng cho việc quảng cáo marketing
 $botman->hears('chat', function($bot) {
