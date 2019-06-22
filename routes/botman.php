@@ -90,7 +90,7 @@ $botman->hears("xóa|delete me", function ($bot) {
     $bot->reply('Xóa thông tin của bạn hoàn tất !');
 });
 
-$botman->hears("who am i|thông tin|tôi là ai", function ($bot) {
+$botman->hears("who am i|thông tin của tôi|tôi là ai", function ($bot) {
     if(Auth::id()){
         $result = DB::table('users')->where('id',Auth::id())->first();
         $message = '--------<br>';

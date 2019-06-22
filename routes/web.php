@@ -1,11 +1,5 @@
 <?php
 
-
-Route::get('/a', function () {
-    return view('test');
-});
-
-
 Route::group(['namespace' => 'AdminAuth'], function() {
 
     Route::group(['prefix' => 'authadmin','middleware'=>'adminCheckLogin'], function()
@@ -219,3 +213,7 @@ Route::get('auth/{provider}/callback',
 
 Route::match(['get', 'post'], '/botman', 'BotManController@handle');
 Route::get('/botman/tinker', 'BotManController@tinker');
+
+Route::get('/test',function(){
+    return view('home');
+});

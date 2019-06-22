@@ -30,19 +30,9 @@ class InCartController extends Controller
       'billDetail' => $billDetailByIdBill,
     );
     Mail::send('user.ordermail', $data, function ($message) use ($data) {    
-     
       $message->to($data['bill']->email);
-      
       $message->bcc('tomiot8485@gmail.com', 'Quản trị');
-        // $message->cc('john@johndoe.com', 'John Doe');
-      
-        // $message->replyTo('john@johndoe.com', 'John Doe');
-      
       $message->subject('HÓA ĐƠN ĐẶT HÀNG');
-      
-        // $message->priority(3);
-      
-        // $message->attach('pathToFile');
     });
   }
 
@@ -107,7 +97,7 @@ class InCartController extends Controller
           //remove the content of a cart
           Cart::destroy();
           /*Thêm vào db thành công, redirect về trang chủ*/
-          $redirect_to = 'tatcasanpham';
+          // $redirect_to = 'tatcasanpham';
           return redirect()->back()->with('thongbao','Đặt hàng thành công. Vui lòng kiểm tra email của bạn');
       } // end if Auth::user
       else{ /*User chưa login vào hệ thống*/
