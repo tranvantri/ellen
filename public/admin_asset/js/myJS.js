@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 	function notifyMe() {
 		if (!("Notification" in window)) {
-			alert("Trình duyrt65 không hỗ trợ thông báo");
+			alert("Trình duyệt không hỗ trợ thông báo");
 		}
 		else if (Notification.permission === "granted") {
 			var options = {
