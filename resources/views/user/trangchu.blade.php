@@ -33,14 +33,7 @@
 									<span class="sale-card-endTimeContent">
 										<i style="margin-right:unset;" class="fa fa-clock-o" aria-hidden="true"></i>
 										<span class="end-time-text">Còn</span>
-										<?php
-										$date1 = date("Y-m-d H:i:s",strtotime($prom->end_date_sale));
-										$date2 = date("Y-m-d H:i:s");
-										$ngay = tru2Ngay($date1,$date2, 'd');
-										$gio = tru2Ngay($date1,$date2, 'H');
-										$phut = tru2Ngay($date1,$date2, 'i');
-										?>
-										<span class="end-time-timer">{{$ngay}} ngày {{$gio}}h:{{$phut}}m</span>
+										<span class="end-time-timer" data-time="{{$prom->end_date_sale}}"></span>
 									</span>
 								</div>
 							</div>
