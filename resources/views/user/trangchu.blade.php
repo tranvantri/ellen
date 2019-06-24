@@ -133,6 +133,17 @@
 
 		
 	</style>
+	@foreach($promotion as $prom)
+		<div class="wrap-toast">
+			<div class="toast-header">Khuyến mãi:</div>
+			<div class="toast-content" style="height: 2rem;margin-bottom: 2px;" >{{$prom->name}} - Giảm Đến {{$prom->per_decr}}%</div>
+			<div class="toast-footer">
+				<i style="margin-right:unset;" class="fa fa-clock-o" aria-hidden="true"></i>
+				<span class="end-time-text">Còn</span>
+				<span class="end-time-timer2" data-time="{{$prom->end_date_sale}}">fsdfsdf</span>
+			</div>
+		</div>
+	@endforeach
 	{{-- <div class="icon-chatbox icon-chatbox-animate">
 			<i class="fa fa-comments-o" aria-hidden="true"></i>
 	</div>

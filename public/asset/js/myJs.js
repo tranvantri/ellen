@@ -4,35 +4,83 @@ var socket = io('http://localhost:3000');
 
 
 $(document).ready(function() {
+	setTimeout(function() {
+		if($('.wrap-toast').length){
+			var count = 0;
+			$(".wrap-toast").each(function(i){
+				count += 6000 *i;
+				var elm = $(this);
+				setTimeout(function() {
+					elm.toggleClass('active');
+				}, 6000*i);
+				// elm.toggleClass('active');
+			})
+			setTimeout(function() {
+				$(".wrap-toast").toggleClass('active');
+			}, count + 1000);
+		}
+	}, 6000);
 
+	if($('.end-time-timer2').length){
+		$(".end-time-timer2").each(function (index, element) {
+           var countDownDate = new Date($(element).data('time')).getTime();
+			//Update the count down every 1 second
+			var x = setInterval(function() {
+
+				// Get today's date and time
+				var now = new Date().getTime();
+
+				// Find the distance between now and the count down date
+				var distance = countDownDate - now;
+
+				// Time calculations for days, hours, minutes and seconds
+				var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+				// Display the result in the element with id="demo"
+				$(element).html( days + "Ngày " + hours + "h:"
+				+ minutes + "m:" + seconds + "s ");
+
+				// If the count down is finished, write some text 
+				if (distance < 0) {
+					clearInterval(x);
+					$(element).html('timeup');
+				}
+			}, 1000);
+        });
+	}
+
+	
 	//******************************XU LY TIME DOWN************88 */
 	if($('.end-time-timer').length){
-		
-		var countDownDate = new Date($('.end-time-timer').data('time')).getTime();
-		//Update the count down every 1 second
-		var x = setInterval(function() {
+		$(".end-time-timer").each(function (index, element) {
+           var countDownDate = new Date($(element).data('time')).getTime();
+			//Update the count down every 1 second
+			var x = setInterval(function() {
 
-			// Get today's date and time
-			var now = new Date().getTime();
+				// Get today's date and time
+				var now = new Date().getTime();
 
-			// Find the distance between now and the count down date
-			var distance = countDownDate - now;
+				// Find the distance between now and the count down date
+				var distance = countDownDate - now;
 
-			// Time calculations for days, hours, minutes and seconds
-			var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-			var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-			// Display the result in the element with id="demo"
-			$('.end-time-timer').html( days + "Ngày " + hours + "h:"
-			+ minutes + "m:" + seconds + "s ");
+				// Time calculations for days, hours, minutes and seconds
+				var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+				// Display the result in the element with id="demo"
+				$(element).html( days + "Ngày " + hours + "h:"
+				+ minutes + "m:" + seconds + "s ");
 
-			// If the count down is finished, write some text 
-			if (distance < 0) {
-				clearInterval(x);
-				$('.end-time-timer').html('timeup');
-			}
-		}, 1000);
+				// If the count down is finished, write some text 
+				if (distance < 0) {
+					clearInterval(x);
+					$(element).html('timeup');
+				}
+			}, 1000);
+        });
 	}
 
 
