@@ -23,15 +23,6 @@ return [
         ],
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Facebook Persistent Menu
-    |--------------------------------------------------------------------------
-    |
-    | Example items for your persistent Facebook menu.
-    | See https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/persistent-menu/#example
-    |
-    */
     'persistent_menu' => [
         [
             'locale' => 'default',

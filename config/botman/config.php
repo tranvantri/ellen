@@ -2,27 +2,7 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Conversation Cache Time
-    |--------------------------------------------------------------------------
-    |
-    | BotMan caches each started conversation. This value defines the
-    | number of minutes that a conversation will remain stored in
-    | the cache.
-    |
-    */
+    //  minutes
     'conversation_cache_time' => 900,
-
-    /*
-    |--------------------------------------------------------------------------
-    | User Cache Time
-    |--------------------------------------------------------------------------
-    |
-    | BotMan caches user information of the incoming messages.
-    | This value defines the number of minutes that this
-    | data will remain stored in the cache.
-    |
-    */
     'user_cache_time' => 3000,
 ];
