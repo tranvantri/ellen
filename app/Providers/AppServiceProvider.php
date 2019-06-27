@@ -17,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \URL::forceScheme('https');
         schema::defaultStringLength(191);
 
         $cateGroup = CategoryGroup::where('enable',1)->get();

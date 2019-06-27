@@ -8,14 +8,43 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 use App\Conversations\OnboardingConversation;
 use App\Conversations\CheckInforConversation;
 use App\Conversations\CheckBillConversation;
+use App\Conversations\DiscountConversation;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
+use App\Http\Controllers\Controller;
+use App\Quotation;
+
+
 
 $botman = resolve('botman');
 
 /* Nhóm kịch bản đơn giản */
-$botman->hears('Hi|Hello|Xin chào|Chào|Hey', function ($bot) {
-    $bot->reply('Chào bạn!');
+
+/** ******************************************************** */
+$botman->hears('.*', function ($bot) {
+    $incomingMessageText = $bot->getMessage()->getText();
+    $result = DB::table('chatbot')->where('ask','LIKE',"%". $incomingMessageText ."%")->first();
+    if($result){
+        $anwserResults = json_decode($result->answer);
+        
+        if(count($anwserResults) > 0)
+        {
+            foreach($anwserResults as $child) 
+            {
+                $bot->reply("$child");
+            }
+        }
+        else{
+                // question without anwser in database - table [botanwser]
+            $bot->reply('Hiện tại chúng tôi đang cập nhật ! ');
+        }
+    }
 });
 
+
+/** ********* HANDLE RESULTS NOT EXIST IN DB??  ***************** */
 $botman->hears("Tôi tên là {name}", function ($bot, $name) {
     $bot->userStorage()->save([
         'name' => $name
@@ -39,7 +68,7 @@ $botman->hears('([0-9]+) tuổi', function ($bot,$age) {
         'age'=>$age
     ]);
 });
-$botman->hears('how old am i|tôi bao nhiêu tuổi|tuổi', function ($bot) {
+$botman->hears('how old am i|tôi bao nhiêu tuổi', function ($bot) {
     $age = $bot->userStorage()->get('age');
     if(isset($age)){
         $bot->reply('Bạn '.$age.' tuổi.');
@@ -50,7 +79,7 @@ $botman->hears('how old am i|tôi bao nhiêu tuổi|tuổi', function ($bot) {
 });
 
 
-$botman->hears('([0-9]+)', function ($bot,$year) {
+$botman->hears('năm ([0-9]+)', function ($bot,$year) {
     $now = date('Y');
     $age = $now - $year;
     if($age < 100){
@@ -78,6 +107,14 @@ $botman->hears('địa chỉ của tôi là {address}', function ($bot,$address)
     ]);
 });
 
+$botman->group(['driver' => [SlackDriver::class, FacebookDriver::class]], function($bot) {
+    $bot->hears('keyword', function($bot) {
+        // Only listens on Slack or Facebook
+        $bot->say("Catch Keyword");
+    });
+});
+
+
 // hỏi thông tin người dùng, dùng cho việc quảng cáo marketing
 $botman->hears('chat', function($bot) {
     $bot->startConversation(new OnboardingConversation);
@@ -90,7 +127,7 @@ $botman->hears("xóa|delete me", function ($bot) {
     $bot->reply('Xóa thông tin của bạn hoàn tất !');
 });
 
-$botman->hears("who am i|thông tin|tôi là ai", function ($bot) {
+$botman->hears("who am i|thông tin của tôi|tôi là ai", function ($bot) {
     if(Auth::id()){
         $result = DB::table('users')->where('id',Auth::id())->first();
         $message = '--------<br>';
@@ -121,15 +158,25 @@ $botman->hears("who am i|thông tin|tôi là ai", function ($bot) {
 
 /**  *-----------Nhóm kịch bản lấy dữ liệu từ DB ***************** */
 // xem danh sách nhóm sản phẩm
-$botman->hears('show cate group', 'App\Http\Controllers\UserController\ChatBoxController@handleGetTitles');
+$botman->hears('show cate group|xem danh mục sản phẩm|xem danh muc san pham', 'App\Http\Controllers\UserController\ChatBoxController@handleGetTitles');
 
 // tìm sản phẩm theo tên
 $botman->hears('show me {nameProduct}', 'App\Http\Controllers\UserController\ChatBoxController@handleGetCateProductID');
 
-$botman->hears('bill','App\Http\Controllers\UserController\ChatBoxController@handleGetBillID');
+$botman->hears('bill|kiểm tra bill|tình trạng đơn hàng|tình trạng bill|tình trạng hóa đơn','App\Http\Controllers\UserController\ChatBoxController@handleGetBillID');
 
 /** danh sách trang hàng khuyến mãi */
-$botman->hears('discount|khuyến mãi|coupon','App\Http\Controllers\UserController\ChatBoxController@handleGetDiscount');
+$botman->hears('discount|khuyến mãi|coupon',function($bot) {
+    try {
+    $bot->startConversation(new DiscountConversation);
+    }
+    catch(\Exception $e){
+        \Log::info('Error: ' . $e->getMessage()); //new line
+        $this->error('Unable to fetch BotMan driver repository.');
+        $this->error('Please check your internet connection ang try again.');
+        exit(1);
+    }
+});
 /**
  * Lấy thông tin từ bảng chatbot và trả lời theo KEY-VALUE
  */
