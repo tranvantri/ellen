@@ -7,6 +7,7 @@
 	@yield('title')
 	
 	@include('user.libraries.cssCode')
+	
 </head>
 <body>
 
