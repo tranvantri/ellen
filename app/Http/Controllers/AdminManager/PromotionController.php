@@ -63,7 +63,7 @@ class PromotionController extends Controller
         
         $prom->history = $arrayData;
         $prom->save();
-        return redirect('admin/promotion/add')->with('thongbao','Thêm thành công!');
+        return redirect('admin/promotion/add')->with('thongbao','Thêm thành công!')->with('prom', $prom);
     }
 
     /*---------------Edit Item ----------------------------------*/

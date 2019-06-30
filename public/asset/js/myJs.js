@@ -4,83 +4,78 @@ var socket = io('http://localhost:3000');
 
 
 $(document).ready(function() {
-	setTimeout(function() {
-		if($('.wrap-toast').length){
-			var count = 0;
-			$(".wrap-toast").each(function(i){
-				count += 6000 *i;
-				var elm = $(this);
-				setTimeout(function() {
-					elm.toggleClass('active');
-				}, 6000*i);
-				// elm.toggleClass('active');
-			})
-			setTimeout(function() {
-				$(".wrap-toast").toggleClass('active');
-			}, count + 1000);
+
+	socket.on("sendNotifiPromotionAdmin", function (data) {
+		$('#push-notifi-promotion').append(
+			'<div class="wrap-toast">'+
+			'<div class="toast-header">Khuyến mãi:</div>'+
+			'<div class="toast-content" style="height: 2rem;margin-bottom: 2px;" >'+ data.name+' - Giảm Đến'+ data.per_decr+'%</div>'+
+			'<div class="toast-footer">'+
+				'<i style="margin-right:unset;" class="fa fa-clock-o" aria-hidden="true"></i>'+
+				'<span class="end-time-text">Còn</span>'+
+				'<span class="end-time-timer2" data-time="'+data.end_date_sale+'"></span>'+
+			'</div>'+
+		'</div>'
+		);
+
+		if($('.end-time-timer2').length){
+			$(".end-time-timer2").each(function (index, element) {
+				calTimePromotion(element);
+			});
 		}
-	}, 6000);
-
-	if($('.end-time-timer2').length){
-		$(".end-time-timer2").each(function (index, element) {
-           var countDownDate = new Date($(element).data('time')).getTime();
-			//Update the count down every 1 second
-			var x = setInterval(function() {
-
-				// Get today's date and time
-				var now = new Date().getTime();
-
-				// Find the distance between now and the count down date
-				var distance = countDownDate - now;
-
-				// Time calculations for days, hours, minutes and seconds
-				var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-				// Display the result in the element with id="demo"
-				$(element).html( days + "Ngày " + hours + "h:"
-				+ minutes + "m:" + seconds + "s ");
-
-				// If the count down is finished, write some text 
-				if (distance < 0) {
-					clearInterval(x);
-					$(element).html('timeup');
-				}
-			}, 1000);
-        });
-	}
+		setTimeout(function() {
+			if($('.wrap-toast').length){
+				var count = 0;
+				$(".wrap-toast").each(function(i){
+					count += 4000;
+					var elm = $(this);
+					setTimeout(function() {
+						elm.toggleClass('active');
+					}, count);
+					// elm.toggleClass('active');
+				})
+				setTimeout(function() {
+					$(".wrap-toast").toggleClass('active');
+				}, count + 4000);
+			}
+		}, 6000);
+	})
+	
 
 	
 	//******************************XU LY TIME DOWN************88 */
 	if($('.end-time-timer').length){
 		$(".end-time-timer").each(function (index, element) {
-           var countDownDate = new Date($(element).data('time')).getTime();
-			//Update the count down every 1 second
-			var x = setInterval(function() {
-
-				// Get today's date and time
-				var now = new Date().getTime();
-
-				// Find the distance between now and the count down date
-				var distance = countDownDate - now;
-
-				// Time calculations for days, hours, minutes and seconds
-				var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-				var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-				var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-				var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-				// Display the result in the element with id="demo"
-				$(element).html( days + "Ngày " + hours + "h:"
-				+ minutes + "m:" + seconds + "s ");
-
-				// If the count down is finished, write some text 
-				if (distance < 0) {
-					clearInterval(x);
-					$(element).html('timeup');
-				}
-			}, 1000);
+			calTimePromotion(element);
         });
+	}
+
+	function calTimePromotion(element){
+		var countDownDate = new Date($(element).data('time')).getTime();
+		//Update the count down every 1 second
+		var x = setInterval(function() {
+
+			// Get today's date and time
+			var now = new Date().getTime();
+
+			// Find the distance between now and the count down date
+			var distance = countDownDate - now;
+
+			// Time calculations for days, hours, minutes and seconds
+			var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+			var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+			// Display the result in the element with id="demo"
+			$(element).html( days + "Ngày " + hours + "h:"
+			+ minutes + "m:" + seconds + "s ");
+
+			// If the count down is finished, write some text 
+			if (distance < 0) {
+				clearInterval(x);
+				$(element).html('timeup');
+			}
+		}, 1000);
 	}
 
 

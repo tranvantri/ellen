@@ -27,7 +27,7 @@ class BeforeCartController extends Controller
         }
         $productBuyMany = Product::find($arrayid);     
        
-        return view('user.trangchu',compact('promotion','prohighLight','slide','productBuyMany'));
+        return view('user.trangchu',compact('prohighLight','slide','productBuyMany'));
     }
 
     public function getViewProduct($name, $id)

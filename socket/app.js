@@ -15,4 +15,8 @@ io.on('connection', function (socket) {
 		with message someone purchase items */
 		socket.broadcast.emit('admin-get-purchase');
 	});
+
+	socket.on('sendNotifiPromotion',function(data){
+		socket.broadcast.emit('sendNotifiPromotionAdmin' ,data);
+	});
 });

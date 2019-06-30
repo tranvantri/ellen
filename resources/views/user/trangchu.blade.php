@@ -133,59 +133,70 @@
 
 		
 	</style>
-	@foreach($promotion as $prom)
-		<div class="wrap-toast">
-			<div class="toast-header">Khuyến mãi:</div>
-			<div class="toast-content" style="height: 2rem;margin-bottom: 2px;" >{{$prom->name}} - Giảm Đến {{$prom->per_decr}}%</div>
-			<div class="toast-footer">
-				<i style="margin-right:unset;" class="fa fa-clock-o" aria-hidden="true"></i>
-				<span class="end-time-text">Còn</span>
-				<span class="end-time-timer2" data-time="{{$prom->end_date_sale}}">fsdfsdf</span>
-			</div>
-		</div>
-	@endforeach
-	{{-- <div class="icon-chatbox icon-chatbox-animate">
-			<i class="fa fa-comments-o" aria-hidden="true"></i>
-	</div>
-	<div class="chatbox">
-		
-		<div class="khung-chatbox">
-			<div class="header-chatbox">
-				<div class="ten-shop"><h6>Ellen Store</h6></div>
-				<div class="close-chatbox">
-					<i class="fa fa-times" aria-hidden="true"></i>
-				</div>
-			</div>
-			<div class="box-chat-chatbox scroll">
-				<div class="text-left-tr">Nhà tao có chó</div>
-				<div class="text-right-tr">Nhà m nuôi mèo mà?</div>
-				<div class="text-left-tr">Nhà tao có chó</div>
-				<div class="text-right-tr">Nhà m nuôi mèo mà?</div>
-				<div class="text-left-tr">Nhà tao có chó</div>
-				<div class="text-left-tr">Nhà tao có chó? làm đéo j có mèo</div>
-				<div class="text-right-tr">Nhà m nuôi mèo mà? Nhà m nuôi mèo mà?
-				Nhà m nuôi mèo mà?Nhà m nuôi mèo mà?Nhà m nuôi mèo mà?</div>
-				<div class="text-left-tr">Nhà tao có chó</div>
-				<div class="text-right-tr">Nhà m nuôi mèo mà?</div>
-				<div class="text-left-tr">Nhà tao có chó</div>
-				<div class="text-right-tr">Nhà m nuôi mèo mà?</div>
-			</div>
-			<div class="input-send">
-				<input type="text" placeholder="Nhập tin nhắn" name="" class="input-text">			
-			</div>
-		</div>
-	</div> --}}
-	
+
 	
 @endsection
-@section('yield')
+@section('script')
 <script>
-		{{--  var socket = io('http://localhost:3000');
-		socket.on("clicked-button",function(){
-			//notifyMe();
-			alert("click");
+		// {{--  var socket = io('http://localhost:3000');
+		// socket.on("clicked-button",function(){
+		// 	//notifyMe();
+		// 	alert("click");
 	
-		});  --}}
+		// });  --}}
+
+		$(document).ready(function(){
+			if($('.end-time-timer2').length){
+				$(".end-time-timer2").each(function (index, element) {
+					calTimePromotion(element);
+				});
+			}
+			setTimeout(function() {
+				if($('.wrap-toast').length){
+					var count = 0;
+					$(".wrap-toast").each(function(i){
+						count += 4000;
+						var elm = $(this);
+						setTimeout(function() {
+							elm.toggleClass('active');
+						}, count);
+						// elm.toggleClass('active');
+					})
+					setTimeout(function() {
+						$(".wrap-toast").toggleClass('active');
+					}, count + 4000);
+				}
+			}, 6000);
+
+			
+			function calTimePromotion(element){
+				var countDownDate = new Date($(element).data('time')).getTime();
+				//Update the count down every 1 second
+				var x = setInterval(function() {
+
+					// Get today's date and time
+					var now = new Date().getTime();
+
+					// Find the distance between now and the count down date
+					var distance = countDownDate - now;
+
+					// Time calculations for days, hours, minutes and seconds
+					var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+					var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+					var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+					var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+					// Display the result in the element with id="demo"
+					$(element).html( days + "Ngày " + hours + "h:"
+					+ minutes + "m:" + seconds + "s ");
+
+					// If the count down is finished, write some text 
+					if (distance < 0) {
+						clearInterval(x);
+						$(element).html('timeup');
+					}
+				}, 1000);
+			}
+		});
 </script>
 
 @endsection

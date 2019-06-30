@@ -1,6 +1,12 @@
 //admin
 var socket = io('http://localhost:3000');
 $(document).ready(function () {
+
+	if($('#sendNotifiPromotion').length){
+		let data = $('#sendNotifiPromotion').data('active');
+		// console.log(data.name);
+		socket.emit("sendNotifiPromotion", {name: data.name, per_decr: data.per_decr, end_date_sale: data.end_date_sale});
+	}
 	socket.on("admin-get-purchase", function () {
 		notifyMe();
 	});

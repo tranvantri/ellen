@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\CategoryGroup;
 use App\CategoryProduct;
 use App\Bill;
+use App\Promotion;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
@@ -27,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
 
         $countBill_CTT = Bill::where('billStatus',1)->count();
         view()->share('countBill_CTT', $countBill_CTT);
+
+        $promotion = Promotion::where('enable',1)->get();
+        view()->share('promotion', $promotion);
     }
 
     /**
