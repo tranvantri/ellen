@@ -16,7 +16,7 @@ use Illuminate\Database\QueryException;
 use App\Http\Controllers\Controller;
 use App\Quotation;
 
-
+use BotMan\BotMan\Middleware\ApiAi;
 
 $botman = resolve('botman');
 
@@ -196,3 +196,19 @@ $botman->exception(Exception::class, function($exception, $bot) {
 });
 
 
+$dialogflow = ApiAi::create('6ab0d13bb9df4a3fb427e98a964b096f')->listenForAction();
+
+// Apply global "received" middleware
+$botman->middleware->received($dialogflow);
+
+// Apply matching middleware per hears command
+$botman->hears('my_api_action', function (BotMan $bot) {
+    // The incoming message matched the "my_api_action" on Dialogflow
+    // Retrieve Dialogflow information:
+    $extras = $bot->getMessage()->getExtras();
+    $apiReply = $extras['fulfillmentMessages'];
+    // $apiAction = $extras['apiAction'];
+    // $apiIntent = $extras['apiIntent'];
+    
+    $bot->reply(apiReply);
+});
