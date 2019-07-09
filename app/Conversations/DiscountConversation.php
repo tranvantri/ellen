@@ -44,8 +44,8 @@ class DiscountConversation extends Conversation
                $this->ask($question, function(Answer $answer) {
                     if ($answer->isInteractiveMessageReply()) {
                          # how to redirect to Discount page ???
-                         $this->bot->reply("<a target='_blank' href='".$answer->getValue()."'>Click me</a>");
-                         
+                         $this->bot->reply("<a target='_blank' href='https://ellen.dev".$answer->getValue()."'>Xem chi tiết</a>");
+                        
                     }
                });
           }
