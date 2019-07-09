@@ -46,8 +46,3 @@
 	};
 </script>
 
-{{--  <script type="text/javascript" src="https://gist.github.com/christophrumpel/f7d4a18994c15ef7195219d9649c3c30.js"></script>  --}}
-
-
-
-
