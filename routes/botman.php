@@ -48,75 +48,67 @@ $botman->hears('.*', function ($bot) {
 
 
 /** ********* HANDLE RESULTS NOT EXIST IN DB??  ***************** */
-$botman->hears(".* tên .* là {name}", function ($bot, $name) {
-    $bot->userStorage()->save([
-        'name' => $name
-    ]);
+// $botman->hears(".* tên .* là {name}", function ($bot, $name) {
+//     $bot->userStorage()->save([
+//         'name' => $name
+//     ]);
 
-    $bot->reply('Xin chào '.$name.', bạn cần hỗ trợ gì ạ? ');
-});
+//     $bot->reply('Xin chào '.$name.', bạn cần hỗ trợ gì ạ? ');
+// });
 
-$botman->hears("tôi là {name}, năm nay {age} tuổi", function ($bot, $name,$age) {
-    $bot->reply('Chào '.$name . ', năm nay ' .$name . ' '. $age. ' tuổi ha!');
-});
-
-
-$botman->hears('Tôi tên gì|My name is', function ($bot) {
-    $name = $bot->userStorage()->get('name');
-    $bot->reply('Chào '.$name.' !');
-});
-
-$botman->hears('([0-9]+) tuổi', function ($bot,$age) {
-    $bot->userStorage()->save([
-        'age'=>$age
-    ]);
-});
-$botman->hears('how old am i|tôi bao nhiêu tuổi|.* tuổi', function ($bot) {
-    $age = $bot->userStorage()->get('age');
-    if(isset($age)){
-        $bot->reply('Bạn '.$age.' tuổi.');
-    }
-    else{
-        $bot->reply("Tôi chưa có thông tin về tuổi của bạn. Bạn sinh năm nào?");
-    }
-});
+// $botman->hears("tôi là {name}, năm nay {age} tuổi", function ($bot, $name,$age) {
+//     $bot->reply('Chào '.$name . ', năm nay ' .$name . ' '. $age. ' tuổi ha!');
+// });
 
 
-$botman->hears('.* năm ([0-9]+)', function ($bot,$year) {
-    $now = date('Y');
-    $age = $now - $year;
-    if($age < 100){
-        $bot->userStorage()->save([
-            'age'=>$age
-        ]);
-        $bot->reply("Bạn $age tuổi.");
-    }
-    else{
-        $bot->reply("Tôi chưa hiểu ý của bạn đâu!");
-    }
-});
+// $botman->hears('Tôi tên gì|My name is', function ($bot) {
+//     $name = $bot->userStorage()->get('name');
+//     $bot->reply('Chào '.$name.' !');
+// });
 
-$botman->hears(' .* email .* là {email}', function ($bot,$email) {
-    $bot->reply('Đã xác nhận email: '.$email);
-    $bot->userStorage()->save([
-        'email'=>$email
-    ]);
-});
+// $botman->hears('([0-9]+) tuổi', function ($bot,$age) {
+//     $bot->userStorage()->save([
+//         'age'=>$age
+//     ]);
+// });
+// $botman->hears('how old am i|tôi bao nhiêu tuổi|.* tuổi', function ($bot) {
+//     $age = $bot->userStorage()->get('age');
+//     if(isset($age)){
+//         $bot->reply('Bạn '.$age.' tuổi.');
+//     }
+//     else{
+//         $bot->reply("Tôi chưa có thông tin về tuổi của bạn. Bạn sinh năm nào?");
+//     }
+// });
 
-$botman->hears('.* địa chỉ .* là {address}', function ($bot,$address) {
-    $bot->reply('Đã xác nhận: '.$address);
-    $bot->userStorage()->save([
-        'address'=>$address
-    ]);
-});
 
-$botman->group(['driver' => [SlackDriver::class, FacebookDriver::class]], function($bot) {
-    $bot->hears('keyword', function($bot) {
-        // Only listens on Slack or Facebook
-        $bot->say("Catch Keyword");
-    });
-});
+// $botman->hears('.* năm ([0-9]+)', function ($bot,$year) {
+//     $now = date('Y');
+//     $age = $now - $year;
+//     if($age < 100){
+//         $bot->userStorage()->save([
+//             'age'=>$age
+//         ]);
+//         $bot->reply("Bạn $age tuổi.");
+//     }
+//     else{
+//         $bot->reply("Tôi chưa hiểu ý của bạn đâu!");
+//     }
+// });
 
+// $botman->hears(' .* email .* là {email}', function ($bot,$email) {
+//     $bot->reply('Đã xác nhận email: '.$email);
+//     $bot->userStorage()->save([
+//         'email'=>$email
+//     ]);
+// });
+
+// $botman->hears('.* địa chỉ .* là {address}', function ($bot,$address) {
+//     $bot->reply('Đã xác nhận: '.$address);
+//     $bot->userStorage()->save([
+//         'address'=>$address
+//     ]);
+// });
 
 // hỏi thông tin người dùng, dùng cho việc quảng cáo marketing
 $botman->hears('chat', function($bot) {
@@ -193,12 +185,11 @@ $botman->fallback(function($bot){
 });
 
 $botman->exception(Exception::class, function($exception, $bot) {
-    // $bot->reply("Ex:" . $exception);
 	$bot->reply('Opps, hỏng rồi! Tôi đang đi vắng, sẽ liên hệ ngay lại với bạn!');
 });
 
 
-$dialogflow = ApiAi::create(env('DIALOGFLOW_TOKEN'))->listenForAction();
+$dialogflow = ApiAi::create(env('DUONG_VAO_TIM_HIEN'))->listenForAction();
 $botman->middleware->received($dialogflow);
 $botman->hears('ellen(.*)', function (BotMan $bot) {
     

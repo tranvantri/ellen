@@ -27,7 +27,7 @@
         "maatwebsite/excel": "^3.1",
         "pusher/pusher-php-server": "~3.0",
         "symfony/cache": "^4.2",
-        "unisharp/laravel-filemanager": "~1.8"
+        "unisharp/laravel-filemanager": "dev-master"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
