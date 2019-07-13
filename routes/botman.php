@@ -39,6 +39,14 @@ $botman->hears('.*', function ($bot) {
             {
                 $bot->reply("$child");
             }
+
+            DB::table('user_ask_bot')->insert(
+                [
+                    'user_ask' => $incomingMessageText,
+                    'bot_reply' =>  $result->answer,
+                    'service' => 'chatbot_table'
+                ]
+            );
         }
         else{
                 // question without anwser in database - table [botanwser]
@@ -204,14 +212,16 @@ $botman->hears('ellen(.*)', function (BotMan $bot) {
     $apiReply = $extras['apiReply'];
     $apiAction = $extras['apiAction'];
     $apiIntent = $extras['apiIntent'];
-
-
-    $apiUserAsk = $extras['apiQueryResult.queryText'];
-    
     $bot->reply($apiReply);
 
+    $apiUserAsk = $bot->getMessage()->getText();
     DB::table('user_ask_bot')->insert(
-        ['content' => $apiUserAsk ]
+        [
+            'user_ask' => $apiUserAsk,
+            'bot_reply' => $apiReply,
+            'intent_dialog_flow' =>$apiIntent,
+            'service' => 'dialog_flow'
+        ]
     );
      
 })->middleware($dialogflow);
