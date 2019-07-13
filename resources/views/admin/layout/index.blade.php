@@ -34,6 +34,9 @@
     <link href="admin_asset/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
     <link href="admin_asset/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
+    {{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script>  --}}
+    <script src="admin_asset/js/chart.js"></script>
+    {{--  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>  --}}
 </head>
 
 <body>
@@ -83,8 +86,7 @@
     <script src="dropzone/dist/dropzone.js"></script>  
     <script type="text/javascript" src="asset/js/socket2.js"></script>
     <script src="admin_asset/js/myJS.js"></script>
-     
-
+    
 
 
 
@@ -99,7 +101,7 @@
         });
         
     </script>
-
+    @yield('script')
     
 </body>
 

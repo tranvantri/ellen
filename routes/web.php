@@ -154,7 +154,8 @@ Route::group(['namespace' => 'AdminManager'], function() {
             Route::post('add', 'ChatBotController@postAdd');    
             Route::get('edit/{id}', 'ChatBotController@getEdit');            
             Route::post('edit/{id}', 'ChatBotController@postEdit'); 
-            Route::get('delete/{id}', 'ChatBotController@getDelete');           
+            Route::get('delete/{id}', 'ChatBotController@getDelete');    
+            Route::get('thongke',['as'=>'thongkebot','uses'=>"ChatBotController@thongkebot"]);
         });
         
     });

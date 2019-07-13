@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
 use App\Exports\AskExport;
-
+use DB;
 
 class ChatBotController extends Controller
 {     
@@ -17,7 +17,20 @@ class ChatBotController extends Controller
   {
     return view('admin.chatbot.view');
   }
-
+  public function thongkebot()
+  {
+    $db = DB::table('user_ask_bot')
+      ->where('service','chatbot_table')
+      ->count();
+    $dialog = DB::table('user_ask_bot')
+        ->where('service','dialog_flow')
+        ->count();
+    $none = DB::table('user_ask_bot')
+        ->where('service','none')
+        ->count();
+    return view('admin.chatbot.thongke',compact('db','dialog','none'));
+  }
+  
   public function getList()
   {
     $askAndAns = ChatBot::all();

@@ -99,7 +99,10 @@
                         <a href="{{Route('listchatbot')}}"><i class="fa fa-list"></i> Quản lý câu hỏi</a>
                     </li>
                     <li>
-                        <a href="admin/chatbot/view"><i class="fa fa-file-excel-o fa-fw"></i> Import/Export file<span class="fa arrow"></span></a>
+                        <a href="admin/chatbot/view"><i class="fa fa-file-excel-o fa-fw"></i> Import/Export file</span></a>
+                    </li>
+                    <li>
+                        <a href="admin/chatbot/thongke"><i class="fa fa-bar-chart"></i> Thống kê</a>
                     </li>
                     
                 </ul>
