@@ -9,6 +9,7 @@ use App\Conversations\OnboardingConversation;
 use App\Conversations\CheckInforConversation;
 use App\Conversations\CheckBillConversation;
 use App\Conversations\DiscountConversation;
+use App\Conversations\SizeConversation;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -165,6 +166,12 @@ $botman->hears('bill|kiểm tra bill|tình trạng đơn hàng|tình trạng bil
 $botman->hears('discount|khuyến mãi|coupon|km|khuyến mại',function($bot) {
     $bot->startConversation(new DiscountConversation);
 });
+
+/** Size conversation */
+$botman->hears('tư vấn size',function($bot) {
+    $bot->startConversation(new SizeConversation);
+});
+
 /**
  * Lấy thông tin từ bảng chatbot và trả lời theo KEY-VALUE
  */
@@ -197,8 +204,15 @@ $botman->hears('ellen(.*)', function (BotMan $bot) {
     $apiReply = $extras['apiReply'];
     $apiAction = $extras['apiAction'];
     $apiIntent = $extras['apiIntent'];
+
+
+    $apiUserAsk = $extras['apiQueryResult.queryText'];
     
     $bot->reply($apiReply);
+
+    DB::table('user_ask_bot')->insert(
+        ['content' => $apiUserAsk ]
+    );
      
 })->middleware($dialogflow);
 

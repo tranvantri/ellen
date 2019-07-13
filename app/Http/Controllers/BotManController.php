@@ -11,6 +11,7 @@ use App\Conversations\CheckBillConversation;
 use App\Conversations\CheckUserInformationForBillConversation;
 use App\Conversations\ChatFromDBConversation;
 use App\Conversations\DiscountConversation;
+use App\Conversations\SizeConversation;
 
 class BotManController extends Controller
 {
@@ -35,6 +36,7 @@ class BotManController extends Controller
         $bot->startConversation(new CheckUserInformationForBillConversation());
         $bot->startConversation(new ChatFromDBConversation());
         $bot->startConversation(new DiscountConversation());
+        $bot->startConversation(new SizeConversation());
         
     }
 }
