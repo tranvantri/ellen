@@ -20,14 +20,16 @@ class ChatBotController extends Controller
   public function thongkebot()
   {
     $db = DB::table('user_ask_bot')
+      ->select('user_ask','bot_reply')
       ->where('service','chatbot_table')
-      ->count();
+      ->get();
     $dialog = DB::table('user_ask_bot')
+        ->select('user_ask','bot_reply','intent_dialog_flow')
         ->where('service','dialog_flow')
-        ->count();
+        ->get();
     $none = DB::table('user_ask_bot')
         ->where('service','none')
-        ->count();
+        ->get();
     return view('admin.chatbot.thongke',compact('db','dialog','none'));
   }
   

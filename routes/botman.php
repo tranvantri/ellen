@@ -51,6 +51,14 @@ $botman->hears('.*', function ($bot) {
         else{
                 // question without anwser in database - table [botanwser]
             $bot->reply('Hiện tại chúng tôi đang cập nhật ! ');
+            DB::table('user_ask_bot')->insert(
+                [
+                    'user_ask' => $incomingMessageText,
+                    'bot_reply' =>  null,
+                    'service' => 'none',
+                    'intent_dialog_flow'=>null
+                ]
+            );
         }
     }
 });
@@ -197,17 +205,32 @@ $botman->hears('stop', function($bot) {
 //------------ Bộ câu hỏi ngoài xử lý   ------------------------------------
 $botman->fallback(function($bot){
     $bot->reply("Xin lỗi tôi chưa hiểu!Bạn vui lòng chờ trong lúc admin liên hệ lại với bạn nhé. Xin cảm ơn!");
+    DB::table('user_ask_bot')->insert(
+        [
+            'user_ask' => $bot->getMessage()->getText(),
+            'bot_reply' =>  null,
+            'service' => 'none',
+            'intent_dialog_flow'=>null
+        ]
+    );
 });
 
 $botman->exception(Exception::class, function($exception, $bot) {
-	$bot->reply('Opps, hỏng rồi! Tôi đang đi vắng, sẽ liên hệ ngay lại với bạn!');
+    $bot->reply('Opps, hỏng rồi! Tôi đang đi vắng, sẽ liên hệ ngay lại với bạn!');
+    DB::table('user_ask_bot')->insert(
+        [
+            'user_ask' => $bot->getMessage()->getText(),
+            'bot_reply' =>  null,
+            'service' => 'none',
+            'intent_dialog_flow'=>null
+        ]
+    );
 });
 
 
 $dialogflow = ApiAi::create(env('DUONG_VAO_TIM_HIEN'))->listenForAction();
 $botman->middleware->received($dialogflow);
 $botman->hears('ellen(.*)', function (BotMan $bot) {
-    
     $extras = $bot->getMessage()->getExtras();
     $apiReply = $extras['apiReply'];
     $apiAction = $extras['apiAction'];
@@ -232,7 +255,14 @@ $botman->hears('input.unknown', function (BotMan $bot) {
     $apiReply = $extras['apiReply'];
     $apiAction = $extras['apiAction'];
     $apiIntent = $extras['apiIntent'];
-    
     $bot->reply($apiReply);
+    DB::table('user_ask_bot')->insert(
+        [
+            'user_ask' => $bot->getMessage()->getText(),
+            'bot_reply' => null,
+            'intent_dialog_flow' =>$apiIntent,
+            'service' => 'none'
+        ]
+    );
      
 })->middleware($dialogflow);
