@@ -228,7 +228,7 @@ $botman->exception(Exception::class, function($exception, $bot) {
 });
 
 
-$dialogflow = ApiAi::create(env('DUONG_VAO_TIM_HIEN'))->listenForAction();
+$dialogflow = ApiAi::create(env('DIALOGFLOW_TOKEN'))->listenForAction();
 $botman->middleware->received($dialogflow);
 $botman->hears('ellen(.*)', function (BotMan $bot) {
     $extras = $bot->getMessage()->getExtras();
