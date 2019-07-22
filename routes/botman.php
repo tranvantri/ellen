@@ -60,7 +60,9 @@ $botman->hears('.*', function ($bot) {
                 ]
             );
         }
+    
     }
+    
 });
 
 
@@ -173,8 +175,8 @@ $botman->hears("who am i|thông tin của tôi|tôi là ai", function ($bot) {
 // xem danh sách nhóm sản phẩm
 $botman->hears('show cate group|xem danh mục sản phẩm|xem danh muc san pham', 'App\Http\Controllers\UserController\ChatBoxController@handleGetTitles');
 
-// tìm sản phẩm theo tên
-$botman->hears('show me {nameProduct}', 'App\Http\Controllers\UserController\ChatBoxController@handleGetCateProductID');
+// // tìm sản phẩm theo tên
+// $botman->hears('show me {nameProduct}| xem {nameProduct}', 'App\Http\Controllers\UserController\ChatBoxController@handleGetCateProductID');
 
 $botman->hears('bill|kiểm tra bill|tình trạng đơn hàng|tình trạng bill|tình trạng hóa đơn','App\Http\Controllers\UserController\ChatBoxController@handleGetBillID');
 
@@ -250,12 +252,11 @@ $botman->hears('ellen(.*)', function (BotMan $bot) {
 })->middleware($dialogflow);
 
 $botman->hears('input.unknown', function (BotMan $bot) {
-    
     $extras = $bot->getMessage()->getExtras();
     $apiReply = $extras['apiReply'];
     $apiAction = $extras['apiAction'];
     $apiIntent = $extras['apiIntent'];
-    $bot->reply($apiReply);
+    // $bot->reply($apiReply);
     DB::table('user_ask_bot')->insert(
         [
             'user_ask' => $bot->getMessage()->getText(),

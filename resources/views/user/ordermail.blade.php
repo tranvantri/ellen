@@ -67,7 +67,7 @@
 					<div class="text">Xin chào bạn, <span style="
     font-size: 18px;">{{$bill->name}} !</span></div>
 					<div class="text">Bạn đã đặt hàng thành công.</div>
-					<div class="text">Thông tin đơn hàng bạn:</div>
+					<div class="text">Thông tin đơn hàng bạn: Mã hóa đơn {{$bill->id}}</div>
 					
 				</td>
 			</tr>

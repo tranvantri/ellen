@@ -184,9 +184,13 @@
 			 var options = {
 				    body: "Vui lòng kiểm tra mail của bạn!",
 				    icon: "icon.jpg",
-				    dir : "ltr"
+				    dir : "ltr",
+				    data: "https://mail.google.com/mail/u/0/"
 				 };
 			   var notification = new Notification("Đặt hàng thành công",options);
+			   notification.onclick = function(e) {
+				window.open("https://mail.google.com/mail/u/0/",'_blank');
+			}
 		}
 		else if (Notification.permission !== 'denied') {
 		  Notification.requestPermission(function (permission) {
@@ -198,9 +202,13 @@
 			 var options = {
 				  body: "Vui lòng kiểm tra mail của bạn!",
 				  icon: "icon.jpg",
-				  dir : "ltr"
+				  dir : "ltr",
+				  data: "https://mail.google.com/mail/u/0/"
 			   };
 			 var notification = new Notification("Đặt hàng thành công",options);
+			 notification.onclick = function(e) {
+				window.open("https://mail.google.com/mail/u/0/",'_blank');
+			}
 		    }
 		  });
 		}

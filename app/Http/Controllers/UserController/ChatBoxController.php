@@ -35,10 +35,10 @@ class ChatBoxController extends Controller
       * show the categories
       */
      public function handleGetTitles($bot){
-          $cateGroup = DB::select('select * from category_group');
+          $cateGroup = DB::select('select * from category_product');
           $bot->reply('Look what i found for you: ');
           foreach($cateGroup as $child){
-               $bot->reply("<a href=".$child->id.">".$child->name."</a>");       
+               $bot->reply("<a target='_blank' href="."/tat-ca-san-pham/".str_slug($child->name)."/".$child->id.">".$child->name."</a>");       
           }           
      }
 
