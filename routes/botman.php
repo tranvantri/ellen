@@ -47,6 +47,9 @@ $botman->hears('.*', function ($bot) {
                     'service' => 'chatbot_table'
                 ]
             );
+            
+
+
         }
         else{
                 // question without anwser in database - table [botanwser]
@@ -59,75 +62,12 @@ $botman->hears('.*', function ($bot) {
                     'intent_dialog_flow'=>null
                 ]
             );
+            
         }
-    
     }
     
 });
 
-
-/** ********* HANDLE RESULTS NOT EXIST IN DB??  ***************** */
-// $botman->hears(".* tên .* là {name}", function ($bot, $name) {
-//     $bot->userStorage()->save([
-//         'name' => $name
-//     ]);
-
-//     $bot->reply('Xin chào '.$name.', bạn cần hỗ trợ gì ạ? ');
-// });
-
-// $botman->hears("tôi là {name}, năm nay {age} tuổi", function ($bot, $name,$age) {
-//     $bot->reply('Chào '.$name . ', năm nay ' .$name . ' '. $age. ' tuổi ha!');
-// });
-
-
-// $botman->hears('Tôi tên gì|My name is', function ($bot) {
-//     $name = $bot->userStorage()->get('name');
-//     $bot->reply('Chào '.$name.' !');
-// });
-
-// $botman->hears('([0-9]+) tuổi', function ($bot,$age) {
-//     $bot->userStorage()->save([
-//         'age'=>$age
-//     ]);
-// });
-// $botman->hears('how old am i|tôi bao nhiêu tuổi|.* tuổi', function ($bot) {
-//     $age = $bot->userStorage()->get('age');
-//     if(isset($age)){
-//         $bot->reply('Bạn '.$age.' tuổi.');
-//     }
-//     else{
-//         $bot->reply("Tôi chưa có thông tin về tuổi của bạn. Bạn sinh năm nào?");
-//     }
-// });
-
-
-// $botman->hears('.* năm ([0-9]+)', function ($bot,$year) {
-//     $now = date('Y');
-//     $age = $now - $year;
-//     if($age < 100){
-//         $bot->userStorage()->save([
-//             'age'=>$age
-//         ]);
-//         $bot->reply("Bạn $age tuổi.");
-//     }
-//     else{
-//         $bot->reply("Tôi chưa hiểu ý của bạn đâu!");
-//     }
-// });
-
-// $botman->hears(' .* email .* là {email}', function ($bot,$email) {
-//     $bot->reply('Đã xác nhận email: '.$email);
-//     $bot->userStorage()->save([
-//         'email'=>$email
-//     ]);
-// });
-
-// $botman->hears('.* địa chỉ .* là {address}', function ($bot,$address) {
-//     $bot->reply('Đã xác nhận: '.$address);
-//     $bot->userStorage()->save([
-//         'address'=>$address
-//     ]);
-// });
 
 // hỏi thông tin người dùng, dùng cho việc quảng cáo marketing
 $botman->hears('chat', function($bot) {
@@ -142,7 +82,7 @@ $botman->hears("xóa|delete me", function ($bot) {
 });
 
 
-$botman->hears("who am i|thông tin của tôi|tôi là ai", function ($bot) {
+$botman->hears("who am i|thông tin của tôi", function ($bot) {
     if(Auth::id()){
         $result = DB::table('users')->where('id',Auth::id())->first();
         $message = '--------<br>';
@@ -175,14 +115,12 @@ $botman->hears("who am i|thông tin của tôi|tôi là ai", function ($bot) {
 // xem danh sách nhóm sản phẩm
 $botman->hears('show cate group|xem danh mục sản phẩm|xem danh muc san pham', 'App\Http\Controllers\UserController\ChatBoxController@handleGetTitles');
 
-// // tìm sản phẩm theo tên
-// $botman->hears('show me {nameProduct}| xem {nameProduct}', 'App\Http\Controllers\UserController\ChatBoxController@handleGetCateProductID');
-
 $botman->hears('bill|kiểm tra bill|tình trạng đơn hàng|tình trạng bill|tình trạng hóa đơn','App\Http\Controllers\UserController\ChatBoxController@handleGetBillID');
 
 /** danh sách trang hàng khuyến mãi */
 $botman->hears('discount|khuyến mãi|coupon|km|khuyến mại',function($bot) {
     $bot->startConversation(new DiscountConversation);
+
 });
 
 /** Size conversation */
@@ -193,7 +131,7 @@ $botman->hears('tư vấn size',function($bot) {
 /**
  * Lấy thông tin từ bảng chatbot và trả lời theo KEY-VALUE
  */
-$botman->hears('ask|hỏi','App\Http\Controllers\UserController\ChatBoxController@handleFromDB');
+// $botman->hears('ask|hỏi','App\Http\Controllers\UserController\ChatBoxController@handleFromDB');
 
 /**
  * Stop conversation
@@ -237,17 +175,23 @@ $botman->hears('ellen(.*)', function (BotMan $bot) {
     $apiReply = $extras['apiReply'];
     $apiAction = $extras['apiAction'];
     $apiIntent = $extras['apiIntent'];
-    
 
     if($apiIntent == 'ellen.hoigia')
     {
         $apiReply = $apiReply . '000';
-
         $resultDB = DB::select($apiReply);
-        foreach($resultDB as $child){
-            $bot->reply("Đây nè bạn yêu <a target='_blank' href='https://ellen.dev/chi-tiet-san-pham/" . str_slug($child->name) . "/" . $child->id ."'>".$child->name."</a>");
-
+        if($resultDB){
+            foreach($resultDB as $child){
+                $bot->reply("Đây nè bạn yêu <a target='_blank' href='https://ellen.dev/chi-tiet-san-pham/" . str_slug($child->name) . "/" . $child->id ."'>".$child->name."</a>");
+            }
         }
+        else{
+            $bot->reply('Sản phẩm không thỏa điều kiện.');
+        }
+
+        
+
+
     }
     else{
         $bot->reply($apiReply);
@@ -272,7 +216,7 @@ $botman->hears('input.unknown', function (BotMan $bot) {
     $apiReply = $extras['apiReply'];
     $apiAction = $extras['apiAction'];
     $apiIntent = $extras['apiIntent'];
-    // $bot->reply($apiReply);
+    $bot->reply($apiReply);
     DB::table('user_ask_bot')->insert(
         [
             'user_ask' => $bot->getMessage()->getText(),
