@@ -57,7 +57,7 @@
                                     @foreach($dialog as $child)
                                     <tr>
                                         <td>{{$child->user_ask}}</td>
-                                        <td>{{$child->bot_reply}}</td>
+                                        <td>{!! $child->bot_reply !!}</td>
                                         <td>{{$child->intent_dialog_flow}}</td>
                                     </tr>
                                   @endforeach

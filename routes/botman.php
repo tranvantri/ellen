@@ -237,17 +237,33 @@ $botman->hears('ellen(.*)', function (BotMan $bot) {
     $apiReply = $extras['apiReply'];
     $apiAction = $extras['apiAction'];
     $apiIntent = $extras['apiIntent'];
-    $bot->reply($apiReply);
+    
 
-    $apiUserAsk = $bot->getMessage()->getText();
-    DB::table('user_ask_bot')->insert(
-        [
-            'user_ask' => $apiUserAsk,
-            'bot_reply' => $apiReply,
-            'intent_dialog_flow' =>$apiIntent,
-            'service' => 'dialog_flow'
-        ]
-    );
+    if($apiIntent == 'ellen.hoigia')
+    {
+        $apiReply = $apiReply . '000';
+
+        $resultDB = DB::select($apiReply);
+        foreach($resultDB as $child){
+            $bot->reply("Đây nè bạn yêu <a target='_blank' href='https://ellen.dev/chi-tiet-san-pham/" . str_slug($child->name) . "/" . $child->id ."'>".$child->name."</a>");
+
+        }
+    }
+    else{
+        $bot->reply($apiReply);
+        $apiUserAsk = $bot->getMessage()->getText();
+        DB::table('user_ask_bot')->insert(
+            [
+                'user_ask' => $apiUserAsk,
+                'bot_reply' => $apiReply,
+                'intent_dialog_flow' =>$apiIntent,
+                'service' => 'dialog_flow'
+            ]
+        );
+    }
+
+
+
      
 })->middleware($dialogflow);
 
